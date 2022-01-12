@@ -1,0 +1,53 @@
+CREATE TABLE admin (
+    id VARCHAR(20),
+    nama VARCHAR(50),
+    alamat TEXT,
+    password VARCHAR(30),
+    no_telpon VARCHAR(30), 
+    masuk_jam VARCHAR(20),
+    sampai_jam VARCHAR(20),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE customer (
+    nik BIGINT,
+    nama VARCHAR(50),
+    alamat TEXT,
+    no_telpon BIGINT,
+    PRIMARY KEY(nik)
+);
+
+CREATE TABLE dvd (
+    kode_dvd VARCHAR(20),
+    judul_film VARCHAR(50),
+    kategori VARCHAR(20),
+    quantity INT,
+    harga BIGINT,
+    PRIMARY KEY(kode_dvd)
+);
+
+CREATE TABLE pemesanan_detail (
+    kode_detail INT AUTO_INCREMENT,
+    nik BIGINT,
+    kode_dvd VARCHAR(20),
+    quantity INT,
+    lama_sewa DATE,
+    PRIMARY KEY(kode_detail)
+);
+
+
+INSERT INTO dvd (kode_dvd, judul_film, kategori, quantity, harga)
+VALUES ('K0001', 'The intouchables', 'Biography', 9, 7500),
+('K0002', 'The will be blood', 'Drama', 12, 8500),
+('K0003', 'Head on', 'Drama Romance', 10, 12000),
+('K0004', 'Purple noon', 'Crime Drama', 21, 6000),
+('K0005', 'The game', 'Drama Mystery', 9, 14000),
+('K0006', 'Source code', 'Action Drama', 18, 8000),
+('K0007', 'Polisee', 'Crime Drama', 20, 19000),
+('K0008', 'Fracture', 'Crime Drama', 15, 9000),
+('K0009', 'Carnage', 'Comedy Drama', 15, 7000),
+('K0010', 'The woodsman', 'Drama', 12, 7500);
+
+INSERT INTO admin (id, nama, alamat, password, no_telpon, masuk_jam, sampai_jam)
+VALUES ('adminlog01', 'joko santoso', 'sewan tangerang rt 03','adminpassword01' ,'085714245678','07.30', '17.00'),
+('adminlog02', 'admin kelompok', 'sewan tangerang rt 02','adminpassword02' ,'085123121012','07.30', '17.00');
