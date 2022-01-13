@@ -67,9 +67,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="inputLamaSewaField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Lama Waktu Sewa"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputLamaSewaFieldActionPerformed"/>
       </Events>
@@ -115,9 +112,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="inputNamaCustField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nama cust"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputNamaCustField1ActionPerformed"/>
       </Events>
@@ -163,9 +157,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="inputAlamatField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Alamat Customer"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputAlamatField1ActionPerformed"/>
       </Events>
@@ -211,9 +202,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="inputNoTelpFiedl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="No Telpon"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputNoTelpFiedlActionPerformed"/>
       </Events>
@@ -259,9 +247,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="inputNikField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="NIK KTP"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputNikField1ActionPerformed"/>
       </Events>
@@ -342,9 +327,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="inputKodeFilmField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Kode Film"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputKodeFilmFieldActionPerformed"/>
       </Events>
@@ -355,9 +337,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="inputQuantityField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Jumlah kaset"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputQuantityFieldActionPerformed"/>
       </Events>
@@ -380,23 +359,13 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Tambah Film"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="440" y="570" width="100" height="70"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Proses Pembayaran"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="570" y="570" width="100" height="70"/>
+          <AbsoluteConstraints x="520" y="570" width="150" height="70"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -576,15 +545,30 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="970" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="112" max="-2" attributes="0"/>
+                  <EmptySpace pref="682" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="710" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="571" max="32767" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="70" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tambah Film"/>
+          </Properties>
+        </Component>
+      </SubComponents>
     </Container>
     <Container class="projek.kelompok.apprentaldvd.view.component.Sidebar" name="sidebar1">
       <Constraints>

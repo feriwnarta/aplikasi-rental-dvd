@@ -5,23 +5,162 @@
  */
 package projek.kelompok.apprentaldvd.view;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import projek.kelompok.apprentaldvd.controlller.service.AdminService;
+import projek.kelompok.apprentaldvd.controlller.service.CustomerService;
+import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.controlller.service.PemesananService;
+import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.model.Customer;
+import projek.kelompok.apprentaldvd.model.Dvd;
+import projek.kelompok.apprentaldvd.model.Pemesanan;
+
 /**
  *
  * @author Feri Winarta
  */
 public class PemesananDvd extends javax.swing.JFrame {
-
-    /**
-     * Creates new form PemesananDvd
-     */
+    private ProdukDvdService dvdService;
+    private CustomerService customerService;
+    private PemesananService pemesananService;
+    private Customer cust;
+    JFrame frame = this;
+    boolean isOke = false;
+    
     public PemesananDvd() {
         initComponents();
+        
+        dvdService = new ProdukDvdService(new KoneksiFactory().getConn());
+        customerService = new CustomerService(new KoneksiFactory().getConn());
+        pemesananService = new PemesananService(new KoneksiFactory().getConn());
+        
+        
+        tambahFilmClicked();
+        cekNikClicked();
+        
+        
+    }
+    
+    public void informasiPemesanan()    {
+        
+        String nik = inputNikField1.getText();
+        String nama = inputNamaCustField1.getText();
+        String alamat = inputAlamatField1.getText();
+        String noTelp = inputNoTelpFiedl.getText();
+        String kode = inputKodeFilmField.getText();
+        
+        int lama = 0;
+        int quantity = 0;
+        
+        if(!inputLamaSewaField.getText().isEmpty()) {
+            try {
+                 lama = Integer.parseInt(inputLamaSewaField.getText());
+            } catch(Exception ex) {
+                JOptionPane.showMessageDialog(this, "Sialhkan masukan lama sewa sebagai angka");
+            }
+        }
+        
+        if(!inputQuantityField.getText().isEmpty()) {
+            try {
+                 quantity = Integer.parseInt(inputQuantityField.getText());
+            } catch(Exception ex) {
+                JOptionPane.showMessageDialog(this, "Sialhkan masukan quantity sebagai angka");
+            }
+        }
+        
+        
+        if(!nik.isEmpty() && !nama.isEmpty() && !alamat.isEmpty() && !noTelp.isEmpty() && !kode.isEmpty()) {
+            cekKodefilm(kode); // untuk kode film salah
+            
+            if(cekKodefilm(kode) != null) {
+                // cek jika nik sudah ada
+                
+                if(cekNik() == false) {
+                    // insert data customer
+                    Customer customer = new Customer(inputNikField1.getText(), inputNamaCustField1.getText(), 
+                    inputAlamatField1.getText(), inputNoTelpFiedl.getText());
+                    customerService.insertCustomer(customer);
+                     // insert pemesanan service
+                    Pemesanan pemesanan1 = new Pemesanan(nik, kode, quantity, lama);
+                    pemesananService.insertPemesanan(pemesanan1);
+                    JOptionPane.showMessageDialog(this, "proses tambah customer dan pemesanan berhasil");
+                } else if(isOke == true || cekNik() == true) {
+                    // insert pemesanan service
+                    Pemesanan pemesanan1 = new Pemesanan(nik, kode, quantity, lama);
+                    pemesananService.insertPemesanan(pemesanan1);
+                    JOptionPane.showMessageDialog(this, "proses tambah berhasil");
+                }else {
+                    JOptionPane.showMessageDialog(this, "NIK sudah terdaftar, klik tombol tambah atau proses pembyaran lagi");
+                    isOke = true;
+                }
+                
+                
+            } else {
+               JOptionPane.showMessageDialog(this, "kode film salah");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Anda belum mengisi data");
+        }
+        
+    }
+    
+    public boolean cekNik(){
+        boolean isUdah = false;
+        if(customerService.cekNik(inputNikField1.getText()) == null) {
+            JOptionPane.showMessageDialog(this, "Nik tidak ketemu");
+        } else {
+           cust = customerService.cekNik(inputNikField1.getText());
+           inputAlamatField1.setText(cust.getAlamat());
+           inputAlamatField1.setForeground(Color.BLUE);
+           inputNamaCustField1.setText(cust.getNama());
+           inputNamaCustField1.setForeground(Color.BLUE);
+           inputNikField1.setText(cust.getNik());
+           inputNikField1.setForeground(Color.BLUE);
+           inputNoTelpFiedl.setText(cust.getNoTelp());
+           inputNoTelpFiedl.setForeground(Color.BLUE);
+           isUdah = true;
+        }
+        return isUdah;
+    }
+    
+    public void cekNikClicked(){
+        jButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                cekNik();
+            }
+        });
+    }
+    
+    public void tambahFilmClicked(){
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                informasiPemesanan();
+                
+            }
+        });
+    }
+    
+    public Dvd cekKodefilm(String kode){
+        Dvd dvd = null;
+        try {
+             dvd = dvdService.getSatuDvd(kode);
+        } catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Kode film salah");
+        }
+        return dvd;
     }
 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * regenerated by the Fo
+     * rm Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -49,7 +188,6 @@ public class PemesananDvd extends javax.swing.JFrame {
         inputKodeFilmField = new javax.swing.JTextField();
         inputQuantityField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -59,6 +197,7 @@ public class PemesananDvd extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -98,7 +237,6 @@ public class PemesananDvd extends javax.swing.JFrame {
 
         getContentPane().add(buttonBg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 110, 40));
 
-        inputLamaSewaField.setText("Lama Waktu Sewa");
         inputLamaSewaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputLamaSewaFieldActionPerformed(evt);
@@ -126,7 +264,6 @@ public class PemesananDvd extends javax.swing.JFrame {
 
         getContentPane().add(buttonBg2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
 
-        inputNamaCustField1.setText("Nama cust");
         inputNamaCustField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputNamaCustField1ActionPerformed(evt);
@@ -154,7 +291,6 @@ public class PemesananDvd extends javax.swing.JFrame {
 
         getContentPane().add(buttonBg3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, 40));
 
-        inputAlamatField1.setText("Alamat Customer");
         inputAlamatField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputAlamatField1ActionPerformed(evt);
@@ -182,7 +318,6 @@ public class PemesananDvd extends javax.swing.JFrame {
 
         getContentPane().add(buttonBg4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, -1, -1));
 
-        inputNoTelpFiedl.setText("No Telpon");
         inputNoTelpFiedl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputNoTelpFiedlActionPerformed(evt);
@@ -210,7 +345,6 @@ public class PemesananDvd extends javax.swing.JFrame {
 
         getContentPane().add(buttonBg5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, -1, -1));
 
-        inputNikField1.setText("NIK KTP");
         inputNikField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputNikField1ActionPerformed(evt);
@@ -258,7 +392,6 @@ public class PemesananDvd extends javax.swing.JFrame {
 
         getContentPane().add(buttonBg7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 480, -1, -1));
 
-        inputKodeFilmField.setText("Kode Film");
         inputKodeFilmField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputKodeFilmFieldActionPerformed(evt);
@@ -266,7 +399,6 @@ public class PemesananDvd extends javax.swing.JFrame {
         });
         getContentPane().add(inputKodeFilmField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 310, 40));
 
-        inputQuantityField.setText("Jumlah kaset");
         inputQuantityField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputQuantityFieldActionPerformed(evt);
@@ -278,11 +410,8 @@ public class PemesananDvd extends javax.swing.JFrame {
         jLabel9.setText("Informasi Pemesanan");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 210, 30));
 
-        jButton1.setText("Tambah Film");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 570, 100, 70));
-
         jButton2.setText("Proses Pembayaran");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 570, 100, 70));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 570, 150, 70));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -322,15 +451,23 @@ public class PemesananDvd extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jButton1.setText("Tambah Film");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 970, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(682, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 710, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(571, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 970, 710));

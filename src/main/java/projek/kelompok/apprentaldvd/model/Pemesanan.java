@@ -15,9 +15,9 @@ public class Pemesanan {
     private String nik;
     private String kode;
     private int quantity;
-    private Date lamaSewa;
+    private int lamaSewa;
 
-    public Pemesanan(String nik, String kode, int quantity, Date lamaSewa) {
+    public Pemesanan(String nik, String kode, int quantity, int lamaSewa) {
         this.nik = nik;
         this.kode = kode;
         this.quantity = quantity;
@@ -48,13 +48,15 @@ public class Pemesanan {
         this.quantity = quantity;
     }
 
-    public Date getLamaSewa() {
+    public int getLamaSewa() {
         return lamaSewa;
     }
 
-    public void setLamaSewa(Date lamaSewa) {
+    public void setLamaSewa(int lamaSewa) {
         this.lamaSewa = lamaSewa;
     }
+
+    
 
     
     

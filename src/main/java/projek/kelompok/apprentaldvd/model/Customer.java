@@ -10,25 +10,27 @@ package projek.kelompok.apprentaldvd.model;
  * @author Feri Winarta
  */
 public class Customer {
-    private long nik;
+    private String nik;
     private String nama;
     private String alamat;
-    private long noTelp;
+    private String noTelp;
 
-    public Customer(long nik, String nama, String alamat, long noTelp) {
+    public Customer(String nik, String nama, String alamat, String noTelp) {
         this.nik = nik;
         this.nama = nama;
         this.alamat = alamat;
         this.noTelp = noTelp;
     }
 
-    public long getNik() {
+    public String getNik() {
         return nik;
     }
 
-    public void setNik(long nik) {
+    public void setNik(String nik) {
         this.nik = nik;
     }
+
+    
 
     public String getNama() {
         return nama;
@@ -46,13 +48,15 @@ public class Customer {
         this.alamat = alamat;
     }
 
-    public long getNoTelp() {
+    public String getNoTelp() {
         return noTelp;
     }
 
-    public void setNoTelp(long noTelp) {
+    public void setNoTelp(String noTelp) {
         this.noTelp = noTelp;
     }
+
+    
 
    
     
