@@ -70,6 +70,26 @@ public class ProdukDvdService {
         return rsMeta;
     }
     
+    public Dvd getSatuDvd(String kode) {
+        ResultSet set;
+        Dvd dvd = null;
+        try {
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT * FROM dvd WHERE kode_dvd = ?"
+            );
+            ps.setString(1, kode);
+            set = ps.executeQuery();   
+            while(set.next()) {
+                dvd = new Dvd(
+                        set.getString("kode_dvd"), set.getString("judul_film"),set.getString("kategori"), set.getInt("quantity"), set.getBigDecimal("harga")
+                );
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return dvd;
+    }
+    
     public int insertDvd(Dvd dvd){
         int status = 100;
         try {
