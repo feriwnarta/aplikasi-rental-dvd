@@ -9,6 +9,8 @@ import java.awt.Button;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
@@ -33,15 +35,26 @@ import projek.kelompok.apprentaldvd.view.component.UpdateDvd;
  */
 public class ProdukDvd extends javax.swing.JFrame {
     private ProdukDvdService service;
+    private JFrame frame = this;
+    private String idAdmin;
     
-    public ProdukDvd() {
+    public ProdukDvd(String idAdmin) {
         initComponents();
+        
+        this.idAdmin = idAdmin;
+        /**
+         * setting jframe untuk bikin ketengah dan exit ketika diclose
+         */
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         
         // untuk menengahkan layar
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         service = new ProdukDvdService(new KoneksiFactory().getConn());
+        menuClicked();
         
         // tampilkan dvd ke dalam table
         DefaultTableModel dtf = (DefaultTableModel) tableDvd.getModel();
@@ -65,7 +78,7 @@ public class ProdukDvd extends javax.swing.JFrame {
         btnTambah.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JFrame frame = new TambahDvd();
+                JFrame frame = new TambahDvd(idAdmin);
                 frameUtama.setVisible(false);
                 frame.setVisible(true);
             }
@@ -74,7 +87,7 @@ public class ProdukDvd extends javax.swing.JFrame {
         btnUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JFrame frame = new UpdateDvd();
+                JFrame frame = new UpdateDvd(idAdmin);
                 frameUtama.setVisible(false);
                 frame.setVisible(true);
             }
@@ -83,11 +96,12 @@ public class ProdukDvd extends javax.swing.JFrame {
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JFrame frame = new DeleteDvd();
+                JFrame frame = new DeleteDvd(idAdmin);
                 frameUtama.setVisible(false);
                 frame.setVisible(true);
             }
         });
+        
     }
     
     public void tambahDvd() {
@@ -117,6 +131,41 @@ public class ProdukDvd extends javax.swing.JFrame {
         });
     }
     
+    public void menuClicked(){
+         // dashboard clicked
+         dashboardMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 JFrame frame2 = new HomeView(idAdmin);
+                 frame.setVisible(false);
+                 frame2.setVisible(true);
+             }
+         });
+         
+         
+         // list dvd menu clicked
+         dvdMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 JFrame frame2 = new ProdukDvd(idAdmin);
+                 frame.setVisible(false);
+                 frame2.setVisible(true);
+             }
+         });
+         
+         // admin menu clicked
+         
+         adminMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 
+                 JFrame frame2 = new AdminView(idAdmin);
+                 frame.setVisible(false);
+                 frame2.setVisible(true);
+             }
+         });
+     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,10 +184,10 @@ public class ProdukDvd extends javax.swing.JFrame {
         btnTambah = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        dashboardMenu = new javax.swing.JLabel();
+        adminMenu = new javax.swing.JLabel();
+        pemesananMenu = new javax.swing.JLabel();
+        dvdMenu = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -186,21 +235,21 @@ public class ProdukDvd extends javax.swing.JFrame {
 
         getContentPane().add(dashbordItem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, -10, 930, 120));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("DASHBOARD");
+        dashboardMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dashboardMenu.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardMenu.setText("DASHBOARD");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("ADMIN");
+        adminMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        adminMenu.setForeground(new java.awt.Color(255, 255, 255));
+        adminMenu.setText("ADMIN");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("PEMESANAN");
+        pemesananMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pemesananMenu.setForeground(new java.awt.Color(255, 255, 255));
+        pemesananMenu.setText("PEMESANAN");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel15.setText("PRODUK DVD");
+        dvdMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dvdMenu.setForeground(new java.awt.Color(255, 0, 0));
+        dvdMenu.setText("PRODUK DVD");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\home_icon.png")); // NOI18N
@@ -223,19 +272,19 @@ public class ProdukDvd extends javax.swing.JFrame {
                             .addGroup(sidebar1Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(dashboardMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(sidebar1Layout.createSequentialGroup()
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pemesananMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(sidebar1Layout.createSequentialGroup()
                                 .addGap(60, 60, 60)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(adminMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebar1Layout.createSequentialGroup()
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dvdMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(24, 24, 24))))
             .addGroup(sidebar1Layout.createSequentialGroup()
                 .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,27 +302,37 @@ public class ProdukDvd extends javax.swing.JFrame {
         sidebar1Layout.setVerticalGroup(
             sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebar1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebar1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(dashboardMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pemesananMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dvdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(adminMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(125, 125, 125))
             .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,21 +377,20 @@ public class ProdukDvd extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProdukDvd().setVisible(true);
+               // tidak bisa dirun
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adminMenu;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel dashboardMenu;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem dashbordItem2;
+    private javax.swing.JLabel dvdMenu;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -342,6 +400,7 @@ public class ProdukDvd extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel pemesananMenu;
     private projek.kelompok.apprentaldvd.view.component.Sidebar sidebar1;
     private javax.swing.JTable tableDvd;
     // End of variables declaration//GEN-END:variables

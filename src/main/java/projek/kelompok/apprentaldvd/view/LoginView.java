@@ -14,8 +14,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
+import projek.kelompok.apprentaldvd.controlller.service.AdminService;
+import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.model.Admin;
 
 /**
  *
@@ -24,10 +28,16 @@ import javax.swing.event.MouseInputListener;
 public class LoginView extends javax.swing.JFrame {
     private String saveId, savePassword;
     private final JFrame frame = this;
+    private AdminService service;
     
     public LoginView() {
+        // inisialsi admin service + kasih koneksi database
+        service = new AdminService(new KoneksiFactory().getConn());
+        
         initComponents();
         authentication();
+        
+        
         closeOperation();
         /**
          * setting jframe untuk bikin ketengah dan exit ketika diclose
@@ -52,20 +62,31 @@ public class LoginView extends javax.swing.JFrame {
                 wrongId.setText("");
                 wrongPass.setText("");
                 
-                if(!saveId.equals("admin") && !saveId.isEmpty() && !savePassword.isEmpty()) {
+                Admin admin = null;
+                try {
+                    if(!saveId.isEmpty()) {
+                        admin = service.getOneAdmin(saveId); 
+                        if(admin.getPassword().equals(savePassword)) {
+                            // jika id dan password berhasil
+                            // proses panggil frame home / dashboard
+                            HomeView home = new HomeView(admin.getId());
+                            //home.setIdAdmin(saveId);
+                            // JFrame dashboard = home;
+                            home.setVisible(true);
+                            frame.setVisible(false);
+                        } else { 
+                            wrongPass.setText("password salah");
+                        }
+                    }
+                } catch(Exception ex) {    
                     idNoInput.setText("");
                     wrongId.setText("id salah");
                 }
-                
+
                 if(saveId.isEmpty()) {
                     wrongId.setText("");
                     idNoInput.setText("id belum di masukan");
                     
-                }
-                
-                if(!savePassword.equals("admin") && !savePassword.isEmpty() && !saveId.isEmpty()) {
-                    passNoInput.setText("");
-                    wrongPass.setText("password salah");
                 }
                 
                 if(savePassword.isEmpty()) {
@@ -114,6 +135,7 @@ public class LoginView extends javax.swing.JFrame {
         wrongId = new javax.swing.JLabel();
         passNoInput = new javax.swing.JLabel();
         idNoInput = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -195,6 +217,11 @@ public class LoginView extends javax.swing.JFrame {
         idNoInput.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(idNoInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 210, 30));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("* Klik tombol disamping untuk login");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 420, 200, 20));
+
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\loginbg2.jpg")); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 410, 630));
 
@@ -267,6 +294,7 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

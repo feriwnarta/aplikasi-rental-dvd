@@ -34,7 +34,7 @@ public class TambahDvd extends javax.swing.JFrame {
     private ProdukDvdService service;
     private JFrame frame = this;
     
-    public TambahDvd() {
+    public TambahDvd(String idAdmin) {
         initComponents();
         
         // untuk menengahkan layar
@@ -50,7 +50,7 @@ public class TambahDvd extends javax.swing.JFrame {
         jButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JFrame frame = new ProdukDvd();
+                JFrame frame = new ProdukDvd(idAdmin);
                 frameIni.setVisible(false);
                 frame.setVisible(true);
             }
@@ -327,7 +327,7 @@ public class TambahDvd extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TambahDvd().setVisible(true);
+                
             }
         });
     }

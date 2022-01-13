@@ -14,6 +14,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.EventListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,22 +27,38 @@ import javax.swing.table.TableColumn;
 import projek.kelompok.apprentaldvd.controlller.service.AdminService;
 import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
 import projek.kelompok.apprentaldvd.model.Admin;
+import projek.kelompok.apprentaldvd.view.component.GantiPassword;
 
 /**
  *
  * @author Feri Winarta
  */
+
+    /**
+     * TIDAK BISA DIJALANKAN, KARENA METHOD MAIN DIBAWAH TIDAK MENJALANKAN FRAME INI
+     * KARENA FRAME INI MENERIMA DATA ADMIN ID DARI FRAME LOGIN
+     */
 public class AdminView extends javax.swing.JFrame {
     private AdminService service;
     private JFrame frame = this;
+    private String idAdmin;
     
-    public AdminView() {
+    public AdminView(String idAdmin) {
         initComponents();
+        menuClicked();
+        gantiPasswordClicked();
         
+        /**
+         * setting jframe untuk bikin ketengah dan exit ketika diclose
+         */
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        this.idAdmin = idAdmin;
         service = new AdminService(new KoneksiFactory().getConn());
         
         // tampilkan nama admin
-        Admin admin = service.getOneAdmin("adminlog02");
+        Admin admin = service.getOneAdmin(idAdmin);
         labelNama.setText(admin.getNama());
         labelJamMasuk.setText(admin.getMasukJam());
         labelJamAkhir.setText(admin.getSampaiJam());
@@ -70,8 +88,7 @@ public class AdminView extends javax.swing.JFrame {
         
         
     }
-    
-    
+
     public void buttonSimpanInfoClicked(Admin admin){
         simpanButton.addActionListener(new ActionListener() {
             @Override
@@ -83,10 +100,6 @@ public class AdminView extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(frame, "anda belum memasukan data atau ada field yg masih kosong");
                 }
-                
-                
-                
-                
             }
         });
     }
@@ -128,7 +141,51 @@ public class AdminView extends javax.swing.JFrame {
         });
     }
     
+    public void gantiPasswordClicked(){
+        gantiPasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFrame framePw = new GantiPassword(idAdmin);
+                framePw.setVisible(true);
+                frame.setVisible(false);
+            }
+        });
+    }
     
+    public void menuClicked(){
+         // dashboard clicked
+         dashboardMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 JFrame frame2 = new HomeView(idAdmin);
+                 frame.setVisible(false);
+                 frame2.setVisible(true);
+             }
+         });
+         
+         
+         // list dvd menu clicked
+         dvdMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 JFrame frame2 = new ProdukDvd(idAdmin);
+                 frame.setVisible(false);
+                 frame2.setVisible(true);
+             }
+         });
+         
+         // admin menu clicked
+         
+         adminMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 
+                 JFrame frame2 = new AdminView(idAdmin);
+                 frame.setVisible(false);
+                 frame2.setVisible(true);
+             }
+         });
+     }
     
     
     
@@ -144,10 +201,10 @@ public class AdminView extends javax.swing.JFrame {
 
         jFrame1 = new javax.swing.JFrame();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        dashboardMenu = new javax.swing.JLabel();
+        adminMenu = new javax.swing.JLabel();
+        pemesananMenu = new javax.swing.JLabel();
+        dvdMenu = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -220,21 +277,21 @@ public class AdminView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("DASHBOARD");
+        dashboardMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dashboardMenu.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardMenu.setText("DASHBOARD");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel13.setText("ADMIN");
+        adminMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        adminMenu.setForeground(new java.awt.Color(255, 0, 0));
+        adminMenu.setText("ADMIN");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("PEMESANAN");
+        pemesananMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pemesananMenu.setForeground(new java.awt.Color(255, 255, 255));
+        pemesananMenu.setText("PEMESANAN");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("PRODUK DVD");
+        dvdMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dvdMenu.setForeground(new java.awt.Color(255, 255, 255));
+        dvdMenu.setText("PRODUK DVD");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\home_icon.png")); // NOI18N
@@ -257,19 +314,19 @@ public class AdminView extends javax.swing.JFrame {
                             .addGroup(sidebar1Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(dashboardMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(sidebar1Layout.createSequentialGroup()
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pemesananMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(sidebar1Layout.createSequentialGroup()
                                 .addGap(60, 60, 60)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(adminMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebar1Layout.createSequentialGroup()
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dvdMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(24, 24, 24))))
             .addGroup(sidebar1Layout.createSequentialGroup()
                 .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,27 +344,36 @@ public class AdminView extends javax.swing.JFrame {
         sidebar1Layout.setVerticalGroup(
             sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebar1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(dashboardMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pemesananMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(dvdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
+                .addComponent(adminMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(125, 125, 125))
             .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -724,16 +790,19 @@ public class AdminView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminView().setVisible(true);
+                // tidak dipanggil, karena konstruktor mengandung data dari login
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adminMenu;
     private javax.swing.JTextField alamatField;
+    private javax.swing.JLabel dashboardMenu;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem dashbordItem1;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem2 dashbordItem22;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem3 dashbordItem32;
+    private javax.swing.JLabel dvdMenu;
     private javax.swing.JTextField gantiAlamatField;
     private javax.swing.JTextField gantiNamaField;
     private javax.swing.JTextField gantiNoTelpField;
@@ -743,10 +812,6 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -789,6 +854,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField namaField;
     private javax.swing.JTextField noTelField;
     private javax.swing.JPasswordField passwodField;
+    private javax.swing.JLabel pemesananMenu;
     private javax.swing.JTextField sampaiJamField;
     private projek.kelompok.apprentaldvd.view.component.Sidebar sidebar1;
     private javax.swing.JButton simpanBaruButton;

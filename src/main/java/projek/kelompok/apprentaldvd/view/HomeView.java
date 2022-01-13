@@ -12,9 +12,12 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -36,9 +39,20 @@ public class HomeView extends javax.swing.JFrame {
     private ProdukDvdService dvdService;
     private AdminService adminService;
     private PemesananService pemesanan;
+    private JFrame frameHome = this;
+    private String idAdmin;
+
+    public String getIdAdmin() {
+        return idAdmin;
+    }
     
-    public HomeView() {
+    /**
+     * FRAME INI TIDAK BISA LANGSUNG DIJALANKAN, KARENA METHOD MAIN DIBAWAH TIDAK MEMANGGIL FRAME INI
+     * HARAP TIDAK DIGANTI, KARENA ADA PROSES TRASNFER ID ADMIN DARI PROSES LOGIN
+     */
+    public HomeView(String idAdmin) {
         initComponents();
+        this.idAdmin = idAdmin;
         
         // untuk menengahkan layar
         this.setLocationRelativeTo(null);
@@ -50,7 +64,7 @@ public class HomeView extends javax.swing.JFrame {
         pemesanan = new PemesananService(new KoneksiFactory().getConn());
         
         // nama admin
-        Admin admin = adminService.getOneAdmin("adminlog01");
+        Admin admin = adminService.getOneAdmin(idAdmin);
         adminField.setText(admin.getNama());
         
         // jumlah dvd
@@ -73,15 +87,44 @@ public class HomeView extends javax.swing.JFrame {
             v2.add(value.getQuantity());
             v2.add(value.getHarga());
             dtf.addRow(v2);
-           
         }
         
-        
-        
-       
-        
-        
+        // menu clicked
+        menuClicked();
     }
+    
+     public void menuClicked(){
+         // pemesanan clicked
+         pemesananMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 JFrame frame = new PemesananDvd(idAdmin);
+                 frameHome.setVisible(false);
+                 frame.setVisible(true);
+             }
+         });
+         
+         // list dvd menu clicked
+         dvdMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 JFrame frame = new ProdukDvd(idAdmin);
+                 frameHome.setVisible(false);
+                 frame.setVisible(true);
+             }
+         });
+         
+         // admin menu clicked
+         
+         adminMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 JFrame frame = new AdminView(idAdmin);
+                 frameHome.setVisible(false);
+                 frame.setVisible(true);
+             }
+         });
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,9 +157,9 @@ public class HomeView extends javax.swing.JFrame {
         totalSewaField = new javax.swing.JLabel();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        adminMenu = new javax.swing.JLabel();
+        pemesananMenu = new javax.swing.JLabel();
+        dvdMenu = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -125,6 +168,7 @@ public class HomeView extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel20 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -159,7 +203,7 @@ public class HomeView extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        searchField.setText("Search ?....");
+        searchField.setText("Cari DVD ?.... ");
         jPanel1.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 34, 822, 40));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
@@ -179,7 +223,7 @@ public class HomeView extends javax.swing.JFrame {
         jLabel1.setText("DASHBOARD");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 100, -1, 30));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_profit.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\icon_admin.png")); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -296,17 +340,17 @@ public class HomeView extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(204, 0, 0));
         jLabel12.setText("DASHBOARD");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("ADMIN");
+        adminMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        adminMenu.setForeground(new java.awt.Color(255, 255, 255));
+        adminMenu.setText("ADMIN");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("PEMESANAN");
+        pemesananMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pemesananMenu.setForeground(new java.awt.Color(255, 255, 255));
+        pemesananMenu.setText("PEMESANAN");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("PRODUK DVD");
+        dvdMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dvdMenu.setForeground(new java.awt.Color(255, 255, 255));
+        dvdMenu.setText("PRODUK DVD");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\home_icon.png")); // NOI18N
@@ -316,6 +360,8 @@ public class HomeView extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_kaset.png"))); // NOI18N
 
         jLabel20.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\icon_admin.png")); // NOI18N
+
+        jLabel4.setText("* Klik tulisan untuk pindah menu");
 
         javax.swing.GroupLayout sidebar1Layout = new javax.swing.GroupLayout(sidebar1);
         sidebar1.setLayout(sidebar1Layout);
@@ -327,21 +373,21 @@ public class HomeView extends javax.swing.JFrame {
                     .addGroup(sidebar1Layout.createSequentialGroup()
                         .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(sidebar1Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(sidebar1Layout.createSequentialGroup()
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pemesananMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(sidebar1Layout.createSequentialGroup()
                                 .addGap(60, 60, 60)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(adminMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(sidebar1Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebar1Layout.createSequentialGroup()
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dvdMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(24, 24, 24))))
             .addGroup(sidebar1Layout.createSequentialGroup()
                 .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,6 +396,10 @@ public class HomeView extends javax.swing.JFrame {
                     .addComponent(jSeparator4)
                     .addComponent(jSeparator5))
                 .addContainerGap())
+            .addGroup(sidebar1Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(sidebar1Layout.createSequentialGroup()
                     .addGap(20, 20, 20)
@@ -359,27 +409,39 @@ public class HomeView extends javax.swing.JFrame {
         sidebar1Layout.setVerticalGroup(
             sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebar1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(62, 62, 62)
+                .addComponent(jLabel4)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(pemesananMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidebar1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(dvdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(adminMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(125, 125, 125))
             .addGroup(sidebar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,30 +491,30 @@ public class HomeView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeView().setVisible(true);
+                //new HomeView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adminField;
+    private javax.swing.JLabel adminMenu;
     private javax.swing.JLabel dashbordIcon;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem dashbordItem1;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem2 dashbordItem21;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem3 dashbordItem31;
+    private javax.swing.JLabel dvdMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -464,6 +526,7 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel jmlhDvdField;
+    private javax.swing.JLabel pemesananMenu;
     private javax.swing.JTextField searchField;
     private projek.kelompok.apprentaldvd.view.component.Sidebar sidebar1;
     private javax.swing.JTable tableDvd;

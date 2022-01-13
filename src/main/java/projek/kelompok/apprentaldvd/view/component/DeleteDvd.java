@@ -34,7 +34,7 @@ public class DeleteDvd extends javax.swing.JFrame {
     private ProdukDvdService service;
     private JFrame frame = this;
     
-    public DeleteDvd() {
+    public DeleteDvd(String idAdmin) {
         initComponents();
         
         // untuk menengahkan frame
@@ -51,7 +51,7 @@ public class DeleteDvd extends javax.swing.JFrame {
         jButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JFrame frame = new ProdukDvd();
+                JFrame frame = new ProdukDvd(idAdmin);
                 frameIni.setVisible(false);
                 frame.setVisible(true);
             }
@@ -279,7 +279,7 @@ public class DeleteDvd extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeleteDvd().setVisible(true);
+             
             }
         });
     }
