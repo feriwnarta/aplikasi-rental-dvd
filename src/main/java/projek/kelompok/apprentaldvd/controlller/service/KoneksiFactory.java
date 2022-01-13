@@ -16,30 +16,31 @@ import java.util.logging.Logger;
  * @author Feri Winarta
  */
 public class KoneksiFactory {
-    private String dbUrl;
-    private String username;
-    private String password;
+    // jdbc:mysql://127.0.0.1:33061 /aplikasi_penyewaan_dvd", "root", ""
+    private final String DBURL = "jdbc:mysql://127.0.0.1:33061 /aplikasi_penyewaan_dvd";
+    private final String USERNAME = "root";
+    private final String PASSWORD = "";
     private Connection conn = null;
-    
-    public KoneksiFactory(String dbUrl, String username, String password) {
-        this.dbUrl = dbUrl;
-        this.username = username;
-        this.password = password;
+
+    public KoneksiFactory() {
         konekDatabase();
     }
     
     public void konekDatabase(){
         try {
-            conn = DriverManager.getConnection(dbUrl, username, password);
-        } catch (SQLException ex) {
-            System.err.println("koneksi gagal di " + getClass().getSimpleName());
-        }         
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try {
+                conn = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+            } catch (SQLException ex) {
+                System.err.println("koneksi gagal di " + getClass().getSimpleName());
+                System.err.println(ex.getMessage());
+            }} catch (ClassNotFoundException ex) {
+               System.err.println("driver class name tidak ketemu di " + getClass().getSimpleName());
+               System.err.println(ex.getMessage());
+            }
     }
 
-    public void setConn(Connection conn) {
-        this.conn = conn;
+    public Connection getConn() {
+        return conn;
     }
-    
-    
-    
 }

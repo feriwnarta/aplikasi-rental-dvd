@@ -5,18 +5,81 @@
  */
 package projek.kelompok.apprentaldvd.view;
 
+import java.awt.Button;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.model.Dvd;
+
 /**
  *
  * @author Feri Winarta
  */
 public class ProdukDvd extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ProdukDvd
-     */
+    private ProdukDvdService service;
+    
     public ProdukDvd() {
         initComponents();
+        service = new ProdukDvdService(new KoneksiFactory().getConn());
+        
+        DefaultTableModel dtf = (DefaultTableModel) tableDvd.getModel();
+        dtf.setRowCount(0);
+        List<Dvd> semuaDvd = service.getSemuaDvd();
+        
+        for(Dvd value : semuaDvd) {
+            Vector v2 = new Vector();
+            v2.add(value.getKode());
+            v2.add(value.getJudulFilm());
+            v2.add(value.getKategori());
+            v2.add(value.getQuantity());
+            v2.add(value.getHarga());
+            dtf.addRow(v2);
+           
+        }
+        
+        tambahDvd();
+    
     }
+    
+    public void tambahDvd() {
+        btnTambah.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+            }
+        });
+    }
+    
+    public void updateDvd() {
+        btnUpdate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+            }
+        });
+    }
+    
+    public void deleteDvd() {
+        btnDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+            }
+        });
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,7 +94,9 @@ public class ProdukDvd extends javax.swing.JFrame {
         tableDvd = new javax.swing.JTable();
         dashbordItem2 = new projek.kelompok.apprentaldvd.view.component.DashbordItem();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -54,46 +119,33 @@ public class ProdukDvd extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Kode", "Judul", "Kategori", "Jumlah", "Harga", "Edit", "Delete"
+                "Kode", "Judul", "Kategori", "Jumlah", "Harga"
             }
         ));
         jScrollPane1.setViewportView(tableDvd);
         if (tableDvd.getColumnModel().getColumnCount() > 0) {
             tableDvd.getColumnModel().getColumn(0).setPreferredWidth(30);
             tableDvd.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tableDvd.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tableDvd.getColumnModel().getColumn(6).setPreferredWidth(40);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 920, 550));
+
+        dashbordItem2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LIST DVD");
+        dashbordItem2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 31, -1, -1));
 
-        jLabel2.setText("LOGO TAMBAH");
+        btnDelete.setText("Delete");
+        dashbordItem2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 40, -1, 56));
 
-        javax.swing.GroupLayout dashbordItem2Layout = new javax.swing.GroupLayout(dashbordItem2);
-        dashbordItem2.setLayout(dashbordItem2Layout);
-        dashbordItem2Layout.setHorizontalGroup(
-            dashbordItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashbordItem2Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 582, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
-        );
-        dashbordItem2Layout.setVerticalGroup(
-            dashbordItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashbordItem2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(dashbordItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
-        );
+        btnTambah.setText("Tambah");
+        dashbordItem2.add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(605, 41, -1, 56));
+
+        btnUpdate.setText("Update");
+        dashbordItem2.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, -1, 56));
 
         getContentPane().add(dashbordItem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, -10, 930, 120));
 
@@ -235,6 +287,9 @@ public class ProdukDvd extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.JButton btnUpdate;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem dashbordItem2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -244,7 +299,6 @@ public class ProdukDvd extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;

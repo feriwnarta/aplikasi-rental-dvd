@@ -17,10 +17,12 @@ public class Admin {
     private String alamat;
     private String password;
     private String noTelp;
-    private Date masukJam;
-    private Date sampaiJam;
+    private String masukJam;
+    private String sampaiJam;
+    private int status;
 
-    public Admin(String id, String nama, String alamat, String password, String noTelp, Date masukJam, Date sampaiJam) {
+    // nambah admin
+    public Admin(String id, String nama, String alamat, String password, String noTelp, String masukJam, String sampaiJam) {
         this.id = id;
         this.nama = nama;
         this.alamat = alamat;
@@ -30,6 +32,16 @@ public class Admin {
         this.sampaiJam = sampaiJam;
     }
 
+    // tampil data di admin view
+    public Admin(String nama, String alamat, String noTelp, String masukJam, String sampaiJam) {
+        this.nama = nama;
+        this.alamat = alamat;
+        this.noTelp = noTelp;
+        this.masukJam = masukJam;
+        this.sampaiJam = sampaiJam;
+    }
+    
+    
     public String getId() {
         return id;
     }
@@ -70,22 +82,24 @@ public class Admin {
         this.noTelp = noTelp;
     }
 
-    public Date getMasukJam() {
+    public String getMasukJam() {
         return masukJam;
     }
 
-    public void setMasukJam(Date masukJam) {
+    public void setMasukJam(String masukJam) {
         this.masukJam = masukJam;
     }
 
-    public Date getSampaiJam() {
+    public String getSampaiJam() {
         return sampaiJam;
     }
 
-    public void setSampaiJam(Date sampaiJam) {
+    public void setSampaiJam(String sampaiJam) {
         this.sampaiJam = sampaiJam;
     }
 
-   
+    public int getStatus() {
+        return status;
+    }
     
 }

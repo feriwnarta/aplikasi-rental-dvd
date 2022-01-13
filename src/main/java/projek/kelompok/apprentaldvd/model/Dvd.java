@@ -5,6 +5,7 @@
  */
 package projek.kelompok.apprentaldvd.model;
 
+import java.awt.Button;
 import java.math.BigDecimal;
 
 /**
@@ -17,7 +18,16 @@ public class Dvd {
     private String kategori;
     private int quantity;
     private BigDecimal harga;
+    private Button button;
 
+    public Dvd(String kode, String judulFilm, String kategori, int quantity, BigDecimal harga) {
+        this.kode = kode;
+        this.judulFilm = judulFilm;
+        this.kategori = kategori;
+        this.quantity = quantity;
+        this.harga = harga;
+    }
+    
     public Dvd(String judulFilm, String kategori, int quantity, BigDecimal harga) {
         this.judulFilm = judulFilm;
         this.kategori = kategori;
@@ -25,8 +35,6 @@ public class Dvd {
         this.harga = harga;
     }
     
-    
-
     public String getKode() {
         return kode;
     }

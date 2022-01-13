@@ -49,18 +49,6 @@ public class AdminView extends javax.swing.JFrame {
     private void initComponents() {
 
         jFrame1 = new javax.swing.JFrame();
-        dashbordItem1 = new projek.kelompok.apprentaldvd.view.component.DashbordItem();
-        judulProfit = new javax.swing.JLabel();
-        logoBabi = new javax.swing.JLabel();
-        labelNama = new javax.swing.JLabel();
-        dashbordItem22 = new projek.kelompok.apprentaldvd.view.component.DashbordItem2();
-        jLabel2 = new javax.swing.JLabel();
-        logoDvd = new javax.swing.JLabel();
-        labelJamMasuk = new javax.swing.JLabel();
-        dashbordItem32 = new projek.kelompok.apprentaldvd.view.component.DashbordItem3();
-        jLabel4 = new javax.swing.JLabel();
-        logoPinjam = new javax.swing.JLabel();
-        labelJamAkhir = new javax.swing.JLabel();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -81,14 +69,14 @@ public class AdminView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        gantiNoTelpField = new javax.swing.JTextField();
+        sampaiJamField = new javax.swing.JTextField();
+        gantiAlamatField = new javax.swing.JTextField();
+        gantiPasswordButton = new javax.swing.JButton();
+        simpanButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        gantiNamaField = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -97,14 +85,32 @@ public class AdminView extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        namaField = new javax.swing.JTextField();
+        alamatField = new javax.swing.JTextField();
+        noTelField = new javax.swing.JTextField();
+        idField = new javax.swing.JTextField();
+        simpanBaruButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        dashbordItem32 = new projek.kelompok.apprentaldvd.view.component.DashbordItem3();
+        jLabel4 = new javax.swing.JLabel();
+        logoPinjam = new javax.swing.JLabel();
+        labelJamAkhir = new javax.swing.JLabel();
+        dashbordItem22 = new projek.kelompok.apprentaldvd.view.component.DashbordItem2();
+        jLabel2 = new javax.swing.JLabel();
+        logoDvd = new javax.swing.JLabel();
+        labelJamMasuk = new javax.swing.JLabel();
+        dashbordItem1 = new projek.kelompok.apprentaldvd.view.component.DashbordItem();
+        judulProfit = new javax.swing.JLabel();
+        logoBabi = new javax.swing.JLabel();
+        labelNama = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        passwodField = new javax.swing.JTextField();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        masukJamField = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -120,122 +126,6 @@ public class AdminView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        judulProfit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        judulProfit.setForeground(new java.awt.Color(255, 255, 255));
-        judulProfit.setText("Nama Admin");
-
-        logoBabi.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_profit.png")); // NOI18N
-
-        labelNama.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelNama.setForeground(new java.awt.Color(255, 255, 255));
-        labelNama.setText("Joko Santoso");
-
-        javax.swing.GroupLayout dashbordItem1Layout = new javax.swing.GroupLayout(dashbordItem1);
-        dashbordItem1.setLayout(dashbordItem1Layout);
-        dashbordItem1Layout.setHorizontalGroup(
-            dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashbordItem1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(dashbordItem1Layout.createSequentialGroup()
-                        .addGroup(dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(judulProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(logoBabi, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(79, Short.MAX_VALUE))))
-        );
-        dashbordItem1Layout.setVerticalGroup(
-            dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashbordItem1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(logoBabi, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(judulProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelNama, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(dashbordItem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 250, 180));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Masuk Jam");
-
-        logoDvd.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_dvd.png")); // NOI18N
-
-        labelJamMasuk.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelJamMasuk.setForeground(new java.awt.Color(255, 255, 255));
-        labelJamMasuk.setText("07.00");
-
-        javax.swing.GroupLayout dashbordItem22Layout = new javax.swing.GroupLayout(dashbordItem22);
-        dashbordItem22.setLayout(dashbordItem22Layout);
-        dashbordItem22Layout.setHorizontalGroup(
-            dashbordItem22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashbordItem22Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(dashbordItem22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelJamMasuk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(dashbordItem22Layout.createSequentialGroup()
-                        .addGroup(dashbordItem22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(logoDvd)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 120, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        dashbordItem22Layout.setVerticalGroup(
-            dashbordItem22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashbordItem22Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addComponent(logoDvd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelJamMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-        );
-
-        getContentPane().add(dashbordItem22, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 270, 180));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Sampai Jam");
-
-        logoPinjam.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_total.png")); // NOI18N
-
-        labelJamAkhir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelJamAkhir.setForeground(new java.awt.Color(255, 255, 255));
-        labelJamAkhir.setText("17.00");
-
-        javax.swing.GroupLayout dashbordItem32Layout = new javax.swing.GroupLayout(dashbordItem32);
-        dashbordItem32.setLayout(dashbordItem32Layout);
-        dashbordItem32Layout.setHorizontalGroup(
-            dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashbordItem32Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(dashbordItem32Layout.createSequentialGroup()
-                        .addGroup(dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(logoPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelJamAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 41, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        dashbordItem32Layout.setVerticalGroup(
-            dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dashbordItem32Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(logoPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelJamAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(dashbordItem32, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 130, 260, 180));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -359,7 +249,7 @@ public class AdminView extends javax.swing.JFrame {
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 70, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 70, 40));
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 255));
 
@@ -380,7 +270,7 @@ public class AdminView extends javax.swing.JFrame {
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, -1, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
 
         jPanel4.setBackground(new java.awt.Color(0, 204, 255));
 
@@ -401,22 +291,22 @@ public class AdminView extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 510, -1, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, -1, -1));
 
-        jTextField1.setText("Ganti No telp");
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, 240, 40));
+        gantiNoTelpField.setText("Ganti No telp");
+        jPanel1.add(gantiNoTelpField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 450, 240, 40));
 
-        jTextField2.setText("Ganti Nama");
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 620, 240, 40));
+        sampaiJamField.setText("Sampai jam");
+        jPanel1.add(sampaiJamField, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 620, 130, 40));
 
-        jTextField4.setText("Ganti alamat");
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, 240, 40));
+        gantiAlamatField.setText("Ganti alamat");
+        jPanel1.add(gantiAlamatField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 240, 40));
 
-        jButton1.setText("Ganti Password");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 580, -1, 50));
+        gantiPasswordButton.setText("Ganti Password");
+        jPanel1.add(gantiPasswordButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 520, -1, 50));
 
-        jButton2.setText("Simpan");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 580, 110, 50));
+        simpanButton.setText("Simpan");
+        jPanel1.add(simpanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 520, 110, 50));
 
         jPanel5.setBackground(new java.awt.Color(0, 204, 255));
 
@@ -437,10 +327,10 @@ public class AdminView extends javax.swing.JFrame {
             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, -1, -1));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
 
-        jTextField3.setText("Ganti Nama");
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 240, 40));
+        gantiNamaField.setText("Ganti Nama");
+        jPanel1.add(gantiNamaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 240, 40));
 
         jPanel6.setBackground(new java.awt.Color(0, 204, 255));
 
@@ -461,7 +351,7 @@ public class AdminView extends javax.swing.JFrame {
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, -1, -1));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, -1, -1));
 
         jPanel7.setBackground(new java.awt.Color(0, 204, 255));
 
@@ -482,7 +372,7 @@ public class AdminView extends javax.swing.JFrame {
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 500, -1, -1));
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, -1, -1));
 
         jPanel8.setBackground(new java.awt.Color(0, 204, 255));
 
@@ -503,7 +393,7 @@ public class AdminView extends javax.swing.JFrame {
             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 560, -1, -1));
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 500, -1, -1));
 
         jPanel9.setBackground(new java.awt.Color(0, 204, 255));
 
@@ -524,44 +414,208 @@ public class AdminView extends javax.swing.JFrame {
             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 620, -1, -1));
+        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 560, -1, -1));
 
-        jTextField5.setText("nama admin baru");
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, 240, 40));
+        namaField.setText("nama admin baru");
+        jPanel1.add(namaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 240, 40));
 
-        jTextField6.setText("alamat admin baru");
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, 240, 40));
+        alamatField.setText("alamat admin baru");
+        jPanel1.add(alamatField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, 240, 40));
 
-        jTextField7.setText("no telpon admin baru");
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, 240, 40));
+        noTelField.setText("no telpon admin baru");
+        jPanel1.add(noTelField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, 240, 40));
 
-        jTextField8.setText("id login admin baru");
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        idField.setText("id login admin baru");
+        idField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                idFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 560, 240, 40));
+        jPanel1.add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, 240, 40));
 
-        jButton3.setText("Simpan");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(803, 380, 90, 50));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 840, -1));
+        simpanBaruButton.setText("Simpan");
+        jPanel1.add(simpanBaruButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 320, 90, 50));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 292, 840, 10));
 
         jLabel19.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\icon_admin.png")); // NOI18N
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, 46));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 46));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setText("Admin ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, 30));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Sampai Jam");
+
+        logoPinjam.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_total.png")); // NOI18N
+
+        labelJamAkhir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labelJamAkhir.setForeground(new java.awt.Color(255, 255, 255));
+        labelJamAkhir.setText("17.00");
+
+        javax.swing.GroupLayout dashbordItem32Layout = new javax.swing.GroupLayout(dashbordItem32);
+        dashbordItem32.setLayout(dashbordItem32Layout);
+        dashbordItem32Layout.setHorizontalGroup(
+            dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashbordItem32Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(dashbordItem32Layout.createSequentialGroup()
+                        .addGroup(dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(logoPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelJamAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 41, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        dashbordItem32Layout.setVerticalGroup(
+            dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashbordItem32Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(logoPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelJamAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(dashbordItem32, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Masuk Jam");
+
+        logoDvd.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_dvd.png")); // NOI18N
+
+        labelJamMasuk.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labelJamMasuk.setForeground(new java.awt.Color(255, 255, 255));
+        labelJamMasuk.setText("07.00");
+
+        javax.swing.GroupLayout dashbordItem22Layout = new javax.swing.GroupLayout(dashbordItem22);
+        dashbordItem22.setLayout(dashbordItem22Layout);
+        dashbordItem22Layout.setHorizontalGroup(
+            dashbordItem22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashbordItem22Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(dashbordItem22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelJamMasuk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(dashbordItem22Layout.createSequentialGroup()
+                        .addGroup(dashbordItem22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(logoDvd)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 120, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        dashbordItem22Layout.setVerticalGroup(
+            dashbordItem22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashbordItem22Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(logoDvd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelJamMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+
+        jPanel1.add(dashbordItem22, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, -1, -1));
+
+        judulProfit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        judulProfit.setForeground(new java.awt.Color(255, 255, 255));
+        judulProfit.setText("Nama Admin");
+
+        logoBabi.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_profit.png")); // NOI18N
+
+        labelNama.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labelNama.setForeground(new java.awt.Color(255, 255, 255));
+        labelNama.setText("Joko Santoso");
+
+        javax.swing.GroupLayout dashbordItem1Layout = new javax.swing.GroupLayout(dashbordItem1);
+        dashbordItem1.setLayout(dashbordItem1Layout);
+        dashbordItem1Layout.setHorizontalGroup(
+            dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashbordItem1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(dashbordItem1Layout.createSequentialGroup()
+                        .addGroup(dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(judulProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logoBabi, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(79, Short.MAX_VALUE))))
+        );
+        dashbordItem1Layout.setVerticalGroup(
+            dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashbordItem1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(logoBabi, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(judulProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelNama, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(dashbordItem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
+
+        jPanel10.setBackground(new java.awt.Color(0, 204, 255));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("Masuk");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 620, -1, -1));
+
+        passwodField.setText("password admin baru");
+        jPanel1.add(passwodField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 560, 240, 40));
+
+        jPanel11.setBackground(new java.awt.Color(0, 204, 255));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("Masuk");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 620, -1, -1));
+
+        masukJamField.setText("Masuk jam");
+        jPanel1.add(masukJamField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 620, 130, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 920, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_idFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -602,12 +656,15 @@ public class AdminView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField alamatField;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem dashbordItem1;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem2 dashbordItem22;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem3 dashbordItem32;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTextField gantiAlamatField;
+    private javax.swing.JTextField gantiNamaField;
+    private javax.swing.JTextField gantiNoTelpField;
+    private javax.swing.JButton gantiPasswordButton;
+    private javax.swing.JTextField idField;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -622,6 +679,8 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -630,6 +689,8 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -643,14 +704,6 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel judulProfit;
     private javax.swing.JLabel labelJamAkhir;
     private javax.swing.JLabel labelJamMasuk;
@@ -658,6 +711,13 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel logoBabi;
     private javax.swing.JLabel logoDvd;
     private javax.swing.JLabel logoPinjam;
+    private javax.swing.JTextField masukJamField;
+    private javax.swing.JTextField namaField;
+    private javax.swing.JTextField noTelField;
+    private javax.swing.JTextField passwodField;
+    private javax.swing.JTextField sampaiJamField;
     private projek.kelompok.apprentaldvd.view.component.Sidebar sidebar1;
+    private javax.swing.JButton simpanBaruButton;
+    private javax.swing.JButton simpanButton;
     // End of variables declaration//GEN-END:variables
 }

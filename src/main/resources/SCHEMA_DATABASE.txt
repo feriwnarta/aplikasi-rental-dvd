@@ -6,6 +6,7 @@ CREATE TABLE admin (
     no_telpon VARCHAR(30), 
     masuk_jam VARCHAR(20),
     sampai_jam VARCHAR(20),
+    status int default 0,
     PRIMARY KEY(id)
 );
 
@@ -51,3 +52,4 @@ VALUES ('K0001', 'The intouchables', 'Biography', 9, 7500),
 INSERT INTO admin (id, nama, alamat, password, no_telpon, masuk_jam, sampai_jam)
 VALUES ('adminlog01', 'joko santoso', 'sewan tangerang rt 03','adminpassword01' ,'085714245678','07.30', '17.00'),
 ('adminlog02', 'admin kelompok', 'sewan tangerang rt 02','adminpassword02' ,'085123121012','07.30', '17.00');
+
