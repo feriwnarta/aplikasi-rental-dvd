@@ -15,6 +15,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +23,9 @@ import javax.swing.table.TableCellRenderer;
 import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
 import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
 import projek.kelompok.apprentaldvd.model.Dvd;
+import projek.kelompok.apprentaldvd.view.component.DeleteDvd;
+import projek.kelompok.apprentaldvd.view.component.TambahDvd;
+import projek.kelompok.apprentaldvd.view.component.UpdateDvd;
 
 /**
  *
@@ -32,6 +36,11 @@ public class ProdukDvd extends javax.swing.JFrame {
     
     public ProdukDvd() {
         initComponents();
+        
+        // untuk menengahkan layar
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         service = new ProdukDvdService(new KoneksiFactory().getConn());
         
         DefaultTableModel dtf = (DefaultTableModel) tableDvd.getModel();
@@ -50,7 +59,34 @@ public class ProdukDvd extends javax.swing.JFrame {
         }
         
         tambahDvd();
+        JFrame frameUtama = this;
+        
+        btnTambah.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFrame frame = new TambahDvd();
+                frameUtama.setVisible(false);
+                frame.setVisible(true);
+            }
+        });
+        
+        btnUpdate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFrame frame = new UpdateDvd();
+                frameUtama.setVisible(false);
+                frame.setVisible(true);
+            }
+        });
     
+        btnDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFrame frame = new DeleteDvd();
+                frameUtama.setVisible(false);
+                frame.setVisible(true);
+            }
+        });
     }
     
     public void tambahDvd() {

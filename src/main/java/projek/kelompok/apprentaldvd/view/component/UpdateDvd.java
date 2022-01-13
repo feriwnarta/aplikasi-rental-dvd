@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
 import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
 import projek.kelompok.apprentaldvd.model.Dvd;
+import projek.kelompok.apprentaldvd.view.ProdukDvd;
 
 /**
  *
@@ -36,10 +37,23 @@ public class UpdateDvd extends javax.swing.JFrame {
     public UpdateDvd() {
         initComponents();
         
+        // untuk menengahkan layar
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         service = new ProdukDvdService(new KoneksiFactory().getConn());
         tombolUpdateDiklik();
         tampilDataDvd();
         
+        JFrame frameIni = this;
+        jButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFrame frame = new ProdukDvd();
+                frameIni.setVisible(false);
+                frame.setVisible(true);
+            }
+        });
     }
     
     public void tombolUpdateDiklik(){
@@ -141,6 +155,8 @@ public class UpdateDvd extends javax.swing.JFrame {
         inputJudul = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -189,6 +205,13 @@ public class UpdateDvd extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 320, 310));
+
+        jButton2.setText("Kembali");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 90, 40));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Update DVD");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 200, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -248,6 +271,8 @@ public class UpdateDvd extends javax.swing.JFrame {
     private javax.swing.JTextField inputKode;
     private javax.swing.JTextField inputQuanttiy;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

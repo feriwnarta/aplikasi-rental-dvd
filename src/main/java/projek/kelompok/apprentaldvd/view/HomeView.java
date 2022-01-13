@@ -31,6 +31,11 @@ public class HomeView extends javax.swing.JFrame {
     
     public HomeView() {
         initComponents();
+        
+        // untuk menengahkan layar
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         String[] data = new String[]{

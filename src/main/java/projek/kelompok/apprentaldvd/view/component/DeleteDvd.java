@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
 import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
 import projek.kelompok.apprentaldvd.model.Dvd;
+import projek.kelompok.apprentaldvd.view.ProdukDvd;
 
 /**
  *
@@ -36,10 +37,25 @@ public class DeleteDvd extends javax.swing.JFrame {
     public DeleteDvd() {
         initComponents();
         
+        // untuk menengahkan frame
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         service = new ProdukDvdService(new KoneksiFactory().getConn());
         tombolDeleteDiklik();
         tampilDataDvd();
         cekKode();
+        
+        
+        JFrame frameIni = this;
+        jButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFrame frame = new ProdukDvd();
+                frameIni.setVisible(false);
+                frame.setVisible(true);
+            }
+        });
         
     }
     
@@ -48,20 +64,25 @@ public class DeleteDvd extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 
-                Dvd dvd = service.getSatuDvd(inputKode.getText());
-                int status = service.deleteDvd(dvd);
-                
-                if(status != 1) {
-                    JOptionPane.showMessageDialog(frame, "Gagal menghapus dvd");
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Berhasil menghapus dvd");
-                    inputKode.setText("");
-                    labelJudul.setText("");
-                    labelKategori.setText("");
-                    labelQuantity.setText("");
-                    labelharga.setText("");
-                    tampilDataDvd();
+                try {
+                    Dvd dvd = service.getSatuDvd(inputKode.getText());
+                    int status = service.deleteDvd(dvd);
+                    
+                    if(status != 1) {
+                        JOptionPane.showMessageDialog(frame, "Gagal menghapus dvd");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Berhasil menghapus dvd");
+                        inputKode.setText("");
+                        labelJudul.setText("");
+                        labelKategori.setText("");
+                        labelQuantity.setText("");
+                        labelharga.setText("");
+                        tampilDataDvd();
+                    }
+                }catch(Exception ex) {
+                    JOptionPane.showMessageDialog(frame, "Kode dvd belum diisi");
                 }
+                
             }             
         });
     }
@@ -146,6 +167,8 @@ public class DeleteDvd extends javax.swing.JFrame {
         labelKategori = new javax.swing.JLabel();
         labelQuantity = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,27 +177,27 @@ public class DeleteDvd extends javax.swing.JFrame {
 
         harga.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         harga.setText("Harga");
-        jPanel1.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 100, 30));
+        jPanel1.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 30));
 
         judul.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         judul.setText("Kode Dvd");
-        jPanel1.add(judul, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 100, 30));
+        jPanel1.add(judul, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 100, 30));
 
         kategori.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         kategori.setText("Kategori");
-        jPanel1.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 100, 30));
+        jPanel1.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 100, 30));
 
         quantity.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         quantity.setText("Quantity");
-        jPanel1.add(quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 100, 30));
-        jPanel1.add(inputKode, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 130, 30));
+        jPanel1.add(quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 30));
+        jPanel1.add(inputKode, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 130, 30));
 
         jButton1.setText("DELETE");
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 120, 70));
 
         judul1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         judul1.setText("Judul DVD");
-        jPanel1.add(judul1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 100, 30));
+        jPanel1.add(judul1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 100, 30));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -190,13 +213,20 @@ public class DeleteDvd extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 320, 310));
-        jPanel1.add(labelharga, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 280, 30));
-        jPanel1.add(labelJudul, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 280, 30));
-        jPanel1.add(labelKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 280, 30));
-        jPanel1.add(labelQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 280, 30));
+        jPanel1.add(labelharga, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 280, 30));
+        jPanel1.add(labelJudul, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 280, 30));
+        jPanel1.add(labelKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 280, 30));
+        jPanel1.add(labelQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 280, 30));
 
         jButton2.setText("Cek Kode");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, 30));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("DELETE DVD");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 200, 30));
+
+        jButton3.setText("Kembali");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 100, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -259,6 +289,8 @@ public class DeleteDvd extends javax.swing.JFrame {
     private javax.swing.JTextField inputKode;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
