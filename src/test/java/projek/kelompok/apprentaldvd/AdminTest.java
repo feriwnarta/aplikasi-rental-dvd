@@ -26,28 +26,28 @@ public class AdminTest {
     private AdminService service;
     private KoneksiFactory koneksi;
     
-    @Before
+    //@Before
     public void setUp() {
         koneksi = new KoneksiFactory();
-        service = new AdminService(koneksi.getConn());
+        service = new AdminService(new KoneksiFactory().getConn());
     }
     
     @Test
     public void testGetOneAdmin(){
-        Admin admin = service.getOneAdmin("adminlog01");
+        Admin admin = service.getOneAdmin("ucong");
         System.out.println(admin.getNama());
         System.out.println(admin.getAlamat());
     }
     
-    @Test
+    //@Test
     public void testUpdateAdmin(){
-        Admin admin = new Admin("jaka sembung", "sewan", "089603264483", "07.30", "17.00");
-        admin.setId("adminlog01");
+        Admin admin = new Admin("jakarr sembung", "sewan", "089603264483", "07.30", "17.00");
+        admin.setId("adminlog01s");
         int status = service.updateAdmin(admin);
         Assertions.assertEquals(1, status);
     }
     
-    @Test
+    //@Test
     public void testGantiPasswordAdmin(){
         Admin admin = new Admin("jaka sembung", "sewan", "089603264483", "07.30", "17.00");
         admin.setId("adminlog01");
@@ -56,7 +56,7 @@ public class AdminTest {
         Assertions.assertEquals(1, status);
     }
     
-    @Test
+    //@Test
     public void testTambahAdmin(){
         Admin admin = new Admin("adminlog03", "ucup", "gaga", "passwordaja", "012930193", "01.00", "09.00");
         int status = service.tambahAdmin(admin);

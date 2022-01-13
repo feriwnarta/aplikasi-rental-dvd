@@ -21,6 +21,12 @@ public class Admin {
     private String sampaiJam;
     private int status;
 
+    public Admin(String nama, String alamat, String noTelp) {
+        this.nama = nama;
+        this.alamat = alamat;
+        this.noTelp = noTelp;
+    }
+    
     // nambah admin
     public Admin(String id, String nama, String alamat, String password, String noTelp, String masukJam, String sampaiJam) {
         this.id = id;

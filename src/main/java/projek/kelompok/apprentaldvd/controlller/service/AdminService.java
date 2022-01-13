@@ -31,24 +31,18 @@ public class AdminService {
     }
     
     public Admin getOneAdmin(String id){
+        ResultSet set;
+        Admin admin = null;
         try {
             PreparedStatement ps = conn.prepareStatement(
-                    "SELECT * FROM admin WHERE id = ? AND status = 1"
+                    "SELECT * FROM admin WHERE id = ?"
             );
-            
             ps.setString(1, id);
-            
-            ResultSet set = ps.executeQuery();
-            
+            set = ps.executeQuery();   
             while(set.next()) {
-                String nama = set.getString("nama");
-                String alamat = set.getString("alamat");
-                String noTelp = set.getString("no_telpon");
-                String masukJam = set.getString("masuk_jam");
-                String sampaiJam = set.getString("sampai_jam");
-                admin = new Admin(nama, alamat, noTelp, masukJam, sampaiJam);
+                admin = new Admin(set.getString("id"), set.getString("nama"), set.getString("alamat"), set.getString("password"), 
+                        set.getString("no_telpon"), set.getString("masuk_jam"), set.getString("sampai_jam"));
             }
-            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -60,7 +54,7 @@ public class AdminService {
         // update data admin yang sedang aktif 
         try {
             PreparedStatement ps = conn.prepareStatement(
-                    "UPDATE admin SET nama = ?, alamat = ?, no_telpon = ? WHERE id = ? && status = 1"
+                    "UPDATE admin SET nama = ?, alamat = ?, no_telpon = ? WHERE id = ?"
             );
             
             ps.setString(1, admin.getNama());
@@ -79,7 +73,7 @@ public class AdminService {
         int status = 100;
         try {
             PreparedStatement ps = conn.prepareStatement(
-                    "UPDATE admin SET password = ? WHERE id = ? && status = 1"
+                    "UPDATE admin SET password = ? WHERE id = ?"
             );
             
             ps.setString(1, admin.getPassword());

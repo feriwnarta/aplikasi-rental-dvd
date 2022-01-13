@@ -12,32 +12,126 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.EventListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import projek.kelompok.apprentaldvd.controlller.service.AdminService;
+import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.model.Admin;
 
 /**
  *
  * @author Feri Winarta
  */
 public class AdminView extends javax.swing.JFrame {
-
-    /**
-     * Creates new form home
-     */
+    private AdminService service;
+    private JFrame frame = this;
     
     public AdminView() {
         initComponents();
-        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-       
         
+        service = new AdminService(new KoneksiFactory().getConn());
+        
+        // tampilkan nama admin
+        Admin admin = service.getOneAdmin("adminlog02");
+        labelNama.setText(admin.getNama());
+        labelJamMasuk.setText(admin.getMasukJam());
+        labelJamAkhir.setText(admin.getSampaiJam());
+        
+        buttonSimpanInfoClicked(admin);
+        simpanAdminBaruClicked();
+    }
+    
+    public void gantiInfoAdmin(Admin admin1){
+        String nama = gantiNamaField.getText();
+        String alamat = gantiAlamatField.getText();
+        String noTelp = gantiNoTelpField.getText();
+        
+        Admin admin = new Admin(admin1.getId(), nama, alamat, admin1.getPassword(), noTelp, admin1.getMasukJam(), admin1.getSampaiJam());
+        int status = service.updateAdmin(admin);
+        
+        if(status == 1) {
+            JOptionPane.showMessageDialog(this, "update admin berhasil");
+            labelNama.setText(admin.getNama());
+            labelJamMasuk.setText(admin.getMasukJam());
+            labelJamAkhir.setText(admin.getSampaiJam());
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "update admin gagal");
+        }
         
         
         
     }
+    
+    
+    public void buttonSimpanInfoClicked(Admin admin){
+        simpanButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+                if(!gantiNamaField.getText().isEmpty() && !gantiAlamatField.getText().isEmpty() && 
+                        !gantiNoTelpField.getText().isEmpty()) {
+                    gantiInfoAdmin(admin);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "anda belum memasukan data atau ada field yg masih kosong");
+                }
+                
+                
+                
+                
+            }
+        });
+    }
+    
+    public void tambahAdmin(){
+        String nama = namaField.getText();
+        String alamat = alamatField.getText();
+        String noTelp = noTelField.getText();
+        String id = idField.getText();
+        String password = passwodField.getText();
+        String masuk = masukJamField.getText();
+        String sampai = sampaiJamField.getText();
+        
+        // bikin admin baru
+        Admin adminBaru = new Admin(id, nama, alamat, password, noTelp, masuk, sampai);
+        int status = service.tambahAdmin(adminBaru);
+        if(status == 1) {
+            JOptionPane.showMessageDialog(this, "Tambah admin berhasil");
+        } else {
+            JOptionPane.showMessageDialog(this, "tambah admin gagal, id admin sudah ada yg punya");
+        }
+    }
+    
+    public void simpanAdminBaruClicked(){
+        simpanBaruButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+                if(!namaField.getText().isEmpty() && !alamatField.getText().isEmpty() && !noTelField.getText().isEmpty()
+                        && !idField.getText().isEmpty() && !passwodField.getText().isEmpty() && !masukJamField.getText().isEmpty()
+                        && !sampaiJamField.getText().isEmpty()
+                        ){
+                    // isi kode
+                    tambahAdmin();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Field Admin baru harap diisi semuanya");
+                }          
+            }
+        });
+    }
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,10 +201,10 @@ public class AdminView extends javax.swing.JFrame {
         labelNama = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        passwodField = new javax.swing.JTextField();
         jPanel11 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         masukJamField = new javax.swing.JTextField();
+        passwodField = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -124,7 +218,6 @@ public class AdminView extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -292,14 +385,8 @@ public class AdminView extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, -1, -1));
-
-        gantiNoTelpField.setText("Ganti No telp");
         jPanel1.add(gantiNoTelpField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 450, 240, 40));
-
-        sampaiJamField.setText("Sampai jam");
         jPanel1.add(sampaiJamField, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 620, 130, 40));
-
-        gantiAlamatField.setText("Ganti alamat");
         jPanel1.add(gantiAlamatField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 240, 40));
 
         gantiPasswordButton.setText("Ganti Password");
@@ -328,8 +415,6 @@ public class AdminView extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
-
-        gantiNamaField.setText("Ganti Nama");
         jPanel1.add(gantiNamaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 240, 40));
 
         jPanel6.setBackground(new java.awt.Color(0, 204, 255));
@@ -415,17 +500,10 @@ public class AdminView extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 560, -1, -1));
-
-        namaField.setText("nama admin baru");
         jPanel1.add(namaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 240, 40));
-
-        alamatField.setText("alamat admin baru");
         jPanel1.add(alamatField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, 240, 40));
-
-        noTelField.setText("no telpon admin baru");
         jPanel1.add(noTelField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, 240, 40));
 
-        idField.setText("id login admin baru");
         idField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idFieldActionPerformed(evt);
@@ -581,14 +659,11 @@ public class AdminView extends javax.swing.JFrame {
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 620, -1, -1));
 
-        passwodField.setText("password admin baru");
-        jPanel1.add(passwodField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 560, 240, 40));
-
         jPanel11.setBackground(new java.awt.Color(0, 204, 255));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("Masuk");
+        jLabel22.setText("Sampai");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -604,9 +679,8 @@ public class AdminView extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 620, -1, -1));
-
-        masukJamField.setText("Masuk jam");
         jPanel1.add(masukJamField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 620, 130, 40));
+        jPanel1.add(passwodField, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 560, 240, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 920, 710));
 
@@ -714,7 +788,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField masukJamField;
     private javax.swing.JTextField namaField;
     private javax.swing.JTextField noTelField;
-    private javax.swing.JTextField passwodField;
+    private javax.swing.JPasswordField passwodField;
     private javax.swing.JTextField sampaiJamField;
     private projek.kelompok.apprentaldvd.view.component.Sidebar sidebar1;
     private javax.swing.JButton simpanBaruButton;

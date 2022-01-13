@@ -256,7 +256,6 @@ public class PemesananDvd extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1140, 720));
-        setPreferredSize(new java.awt.Dimension(1200, 740));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -457,7 +456,7 @@ public class PemesananDvd extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nik", "Kode DVD", "Quantity", "Lama Sewa"
+                "Kode DVD", "Nik", "Quantity", "Lama Sewa"
             }
         ));
         jTable1.setOpaque(false);
@@ -466,7 +465,7 @@ public class PemesananDvd extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 440, 200));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setText("Detail Pesanan");
+        jLabel10.setText("Total Order DVD");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 250, 40));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
