@@ -8,8 +8,11 @@ package projek.kelompok.apprentaldvd.view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import projek.kelompok.apprentaldvd.controlller.service.AdminService;
 import projek.kelompok.apprentaldvd.controlller.service.CustomerService;
 import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
@@ -41,8 +44,26 @@ public class PemesananDvd extends javax.swing.JFrame {
         
         tambahFilmClicked();
         cekNikClicked();
+        viewDetailPesanan();
+        viewSemuaDvd();
         
+    }
+    
+    public void viewSemuaDvd() {
+        DefaultTableModel dtf = (DefaultTableModel) jTable2.getModel();
+        dtf.setRowCount(0);
+        List<Dvd> semuaDvd = dvdService.getSemuaDvd();
         
+        for(Dvd value : semuaDvd) {
+            Vector v2 = new Vector();
+            v2.add(value.getKode());
+            v2.add(value.getJudulFilm());
+            v2.add(value.getKategori());
+            v2.add(value.getQuantity());
+            v2.add(value.getHarga());
+            dtf.addRow(v2);
+           
+        }
     }
     
     public void informasiPemesanan()    {
@@ -87,12 +108,14 @@ public class PemesananDvd extends javax.swing.JFrame {
                      // insert pemesanan service
                     Pemesanan pemesanan1 = new Pemesanan(nik, kode, quantity, lama);
                     pemesananService.insertPemesanan(pemesanan1);
-                    JOptionPane.showMessageDialog(this, "proses tambah customer dan pemesanan berhasil");
+                    JOptionPane.showMessageDialog(this, "proses pembayaran berhasil");
+                    viewDetailPesanan();
                 } else if(isOke == true || cekNik() == true) {
                     // insert pemesanan service
                     Pemesanan pemesanan1 = new Pemesanan(nik, kode, quantity, lama);
                     pemesananService.insertPemesanan(pemesanan1);
                     JOptionPane.showMessageDialog(this, "proses tambah berhasil");
+                    viewDetailPesanan();
                 }else {
                     JOptionPane.showMessageDialog(this, "NIK sudah terdaftar, klik tombol tambah atau proses pembyaran lagi");
                     isOke = true;
@@ -108,10 +131,26 @@ public class PemesananDvd extends javax.swing.JFrame {
         
     }
     
+    public void viewDetailPesanan(){
+        DefaultTableModel dtf = (DefaultTableModel) jTable1.getModel();
+        dtf.setRowCount(0);
+        List<Pemesanan> semuaPemesanan = pemesananService.getSemuaPemesanan();
+        
+        for(Pemesanan value : semuaPemesanan) {
+            Vector v2 = new Vector();
+            v2.add(value.getKode());
+            v2.add(value.getNik());
+            v2.add(value.getQuantity());
+            v2.add(value.getLamaSewa());
+            dtf.addRow(v2);
+           
+        }
+    }
+    
     public boolean cekNik(){
         boolean isUdah = false;
         if(customerService.cekNik(inputNikField1.getText()) == null) {
-            JOptionPane.showMessageDialog(this, "Nik tidak ketemu");
+            JOptionPane.showMessageDialog(this, "Nik tidak ada didatabase, customer baru dengan nik ini akan dibuat");
         } else {
            cust = customerService.cekNik(inputNikField1.getText());
            inputAlamatField1.setText(cust.getAlamat());
@@ -188,7 +227,6 @@ public class PemesananDvd extends javax.swing.JFrame {
         inputKodeFilmField = new javax.swing.JTextField();
         inputQuantityField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
@@ -198,6 +236,10 @@ public class PemesananDvd extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -410,15 +452,12 @@ public class PemesananDvd extends javax.swing.JFrame {
         jLabel9.setText("Informasi Pemesanan");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 210, 30));
 
-        jButton2.setText("Proses Pembayaran");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 570, 150, 70));
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Kode", "Nama Cust", "Kode DVD", "Quantity", "Lama Sewa", "Harga"
+                "Nik", "Kode DVD", "Quantity", "Lama Sewa"
             }
         ));
         jTable1.setOpaque(false);
@@ -450,25 +489,22 @@ public class PemesananDvd extends javax.swing.JFrame {
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(603, 120, 100, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Tambah Film");
+        jButton1.setText("Proses Pembayaran");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 620, 140, 70));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(176, 176, 176)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(682, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(571, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
-        );
+        jLabel1.setText("* Note : Untuk membuat customer baru, harap gunakan nik yg belum terdaftar");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 526, 430, 26));
+
+        jLabel19.setText("klik tombol dibawah lgi untuk memproses tabel detail pesanan");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 433, 25));
+
+        jLabel21.setText("saat tombol proses diklik, informasi customer yg belum ada akan tersimpan kedatabase");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, 433, 25));
+
+        jLabel22.setText("jika nik sudah ada, maka otomatis field nama, alamat dll akan terisi");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 570, 433, 25));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 970, 710));
 
@@ -653,8 +689,8 @@ public class PemesananDvd extends javax.swing.JFrame {
     private javax.swing.JTextField inputNoTelpFiedl;
     private javax.swing.JTextField inputQuantityField;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -664,8 +700,11 @@ public class PemesananDvd extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

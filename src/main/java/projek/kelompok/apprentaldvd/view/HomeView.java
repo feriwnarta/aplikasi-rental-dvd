@@ -22,9 +22,11 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import projek.kelompok.apprentaldvd.controlller.service.AdminService;
 import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.controlller.service.PemesananService;
 import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
 import projek.kelompok.apprentaldvd.model.Admin;
 import projek.kelompok.apprentaldvd.model.Dvd;
+import projek.kelompok.apprentaldvd.model.Pemesanan;
 
 /**
  *
@@ -33,6 +35,7 @@ import projek.kelompok.apprentaldvd.model.Dvd;
 public class HomeView extends javax.swing.JFrame {
     private ProdukDvdService dvdService;
     private AdminService adminService;
+    private PemesananService pemesanan;
     
     public HomeView() {
         initComponents();
@@ -44,6 +47,7 @@ public class HomeView extends javax.swing.JFrame {
         // ambil koneksi
         dvdService = new ProdukDvdService(new KoneksiFactory().getConn());
         adminService = new AdminService(new KoneksiFactory().getConn());
+        pemesanan = new PemesananService(new KoneksiFactory().getConn());
         
         // nama admin
         Admin admin = adminService.getOneAdmin("adminlog01");
@@ -52,6 +56,10 @@ public class HomeView extends javax.swing.JFrame {
         // jumlah dvd
         List<Dvd> semuaDvd = dvdService.getSemuaDvd();
         jmlhDvdField.setText(Integer.toString(semuaDvd.size()));
+        
+        // total Order
+        List<Pemesanan> semuaPesan = pemesanan.getSemuaPemesanan();
+        totalSewaField.setText(Integer.toString(semuaPesan.size()));
         
         // tampilkan dvd ke dalam table
         DefaultTableModel dtf = (DefaultTableModel) tableDvd.getModel();
@@ -130,7 +138,6 @@ public class HomeView extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tableDvd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -251,7 +258,7 @@ public class HomeView extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Total Penyewaan");
+        jLabel9.setText("Total Order Dvd");
 
         totalSewaField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         totalSewaField.setForeground(new java.awt.Color(255, 255, 255));
