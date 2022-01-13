@@ -12,22 +12,27 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import projek.kelompok.apprentaldvd.controlller.service.AdminService;
+import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.model.Admin;
+import projek.kelompok.apprentaldvd.model.Dvd;
 
 /**
  *
  * @author Feri Winarta
  */
 public class HomeView extends javax.swing.JFrame {
-
-    /**
-     * Creates new form home
-     */
+    private ProdukDvdService dvdService;
+    private AdminService adminService;
     
     public HomeView() {
         initComponents();
@@ -36,20 +41,36 @@ public class HomeView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // ambil koneksi
+        dvdService = new ProdukDvdService(new KoneksiFactory().getConn());
+        adminService = new AdminService(new KoneksiFactory().getConn());
         
-        String[] data = new String[]{
-            "K01", "laskar pelangi laskar pelangi", "drama", "20", "5.000",
-        };
+        // nama admin
+        Admin admin = adminService.getOneAdmin("adminlog01");
+        adminField.setText(admin.getNama());
         
-        // menganti table font
-        tableDvd.getTableHeader().setFont(new Font("verdana", Font.PLAIN, 14) {
-        });
+        // jumlah dvd
+        List<Dvd> semuaDvd = dvdService.getSemuaDvd();
+        jmlhDvdField.setText(Integer.toString(semuaDvd.size()));
         
-        // untuk isi data ke dalam table
-        DefaultTableModel tblModel = (DefaultTableModel)tableDvd.getModel();
-        tblModel.addRow(data);
+        // tampilkan dvd ke dalam table
+        DefaultTableModel dtf = (DefaultTableModel) tableDvd.getModel();
+        dtf.setRowCount(0);
         
+        for(Dvd value : semuaDvd) {
+            Vector v2 = new Vector();
+            v2.add(value.getKode());
+            v2.add(value.getJudulFilm());
+            v2.add(value.getKategori());
+            v2.add(value.getQuantity());
+            v2.add(value.getHarga());
+            dtf.addRow(v2);
+           
+        }
+        
+        
+        
+       
         
         
     }
@@ -74,15 +95,15 @@ public class HomeView extends javax.swing.JFrame {
         dashbordItem1 = new projek.kelompok.apprentaldvd.view.component.DashbordItem();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        adminField = new javax.swing.JLabel();
         dashbordItem21 = new projek.kelompok.apprentaldvd.view.component.DashbordItem2();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jmlhDvdField = new javax.swing.JLabel();
         dashbordItem31 = new projek.kelompok.apprentaldvd.view.component.DashbordItem3();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        totalSewaField = new javax.swing.JLabel();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -155,11 +176,11 @@ public class HomeView extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Penghasilan");
+        jLabel3.setText("Nama Admin");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("4.500.000");
+        adminField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        adminField.setForeground(new java.awt.Color(255, 255, 255));
+        adminField.setText("Nama Admin");
 
         javax.swing.GroupLayout dashbordItem1Layout = new javax.swing.GroupLayout(dashbordItem1);
         dashbordItem1.setLayout(dashbordItem1Layout);
@@ -170,7 +191,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addGroup(dashbordItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(adminField, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         dashbordItem1Layout.setVerticalGroup(
@@ -181,7 +202,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(adminField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -194,9 +215,9 @@ public class HomeView extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Jumlah DVD");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("300");
+        jmlhDvdField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jmlhDvdField.setForeground(new java.awt.Color(255, 255, 255));
+        jmlhDvdField.setText("300");
 
         javax.swing.GroupLayout dashbordItem21Layout = new javax.swing.GroupLayout(dashbordItem21);
         dashbordItem21.setLayout(dashbordItem21Layout);
@@ -205,7 +226,7 @@ public class HomeView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashbordItem21Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(dashbordItem21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jmlhDvdField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dashbordItem21Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,7 +241,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jmlhDvdField, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -232,9 +253,9 @@ public class HomeView extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Total Penyewaan");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("50");
+        totalSewaField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        totalSewaField.setForeground(new java.awt.Color(255, 255, 255));
+        totalSewaField.setText("50");
 
         javax.swing.GroupLayout dashbordItem31Layout = new javax.swing.GroupLayout(dashbordItem31);
         dashbordItem31.setLayout(dashbordItem31Layout);
@@ -245,7 +266,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addGroup(dashbordItem31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(totalSewaField, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         dashbordItem31Layout.setVerticalGroup(
@@ -256,7 +277,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(totalSewaField, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -407,6 +428,7 @@ public class HomeView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adminField;
     private javax.swing.JLabel dashbordIcon;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem dashbordItem1;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem2 dashbordItem21;
@@ -414,7 +436,6 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -425,10 +446,8 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -437,8 +456,10 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel jmlhDvdField;
     private javax.swing.JTextField searchField;
     private projek.kelompok.apprentaldvd.view.component.Sidebar sidebar1;
     private javax.swing.JTable tableDvd;
+    private javax.swing.JLabel totalSewaField;
     // End of variables declaration//GEN-END:variables
 }

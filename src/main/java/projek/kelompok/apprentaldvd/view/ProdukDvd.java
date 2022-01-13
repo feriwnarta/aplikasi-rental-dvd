@@ -43,6 +43,7 @@ public class ProdukDvd extends javax.swing.JFrame {
         
         service = new ProdukDvdService(new KoneksiFactory().getConn());
         
+        // tampilkan dvd ke dalam table
         DefaultTableModel dtf = (DefaultTableModel) tableDvd.getModel();
         dtf.setRowCount(0);
         List<Dvd> semuaDvd = service.getSemuaDvd();
