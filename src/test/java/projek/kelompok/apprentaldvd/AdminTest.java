@@ -13,9 +13,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.Assertions;
-import projek.kelompok.apprentaldvd.controlller.service.AdminService;
-import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
-import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.service.AdminService;
+import projek.kelompok.apprentaldvd.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.service.ProdukDvdService;
 import projek.kelompok.apprentaldvd.model.Admin;
 
 /**

@@ -8,10 +8,7 @@ package projek.kelompok.apprentaldvd.model;
 import java.awt.Button;
 import java.math.BigDecimal;
 
-/**
- *
- * @author Feri Winarta
- */
+
 public class Dvd {
     private String kode;
     private String judulFilm;

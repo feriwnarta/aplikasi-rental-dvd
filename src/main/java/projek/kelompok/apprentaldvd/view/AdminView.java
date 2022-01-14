@@ -24,19 +24,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import projek.kelompok.apprentaldvd.controlller.service.AdminService;
-import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.service.AdminService;
+import projek.kelompok.apprentaldvd.service.KoneksiFactory;
 import projek.kelompok.apprentaldvd.model.Admin;
 import projek.kelompok.apprentaldvd.view.component.GantiPassword;
 
-/**
- *
- * @author Feri Winarta
- */
-
     /**
-     * TIDAK BISA DIJALANKAN, KARENA METHOD MAIN DIBAWAH TIDAK MENJALANKAN FRAME INI
-     * KARENA FRAME INI MENERIMA DATA ADMIN ID DARI FRAME LOGIN
+     * FRAME INI TIDAK BISA LANGSUNG DIJALANKAN, KARENA METHOD MAIN DIBAWAH TIDAK MEMANGGIL FRAME INI
+     * HARAP TIDAK DIGANTI, KARENA ADA PROSES TRASNFER ID ADMIN DARI PROSES LOGIN
+     * JIKA INGIN RUNNING LEWAT APLIKASI UTAMA FRAME, ATAU LOGINVIEW FRAME
      */
 public class AdminView extends javax.swing.JFrame {
     private AdminService service;
@@ -163,24 +159,22 @@ public class AdminView extends javax.swing.JFrame {
              }
          });
          
+         // pemesanan menu clicked
+         pemesananMenu.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent me) {
+                 JFrame frame2 = new PemesananDvd(idAdmin);
+                 frame.setVisible(false);
+                 frame2.setVisible(true);
+             }
+         });
+         
          
          // list dvd menu clicked
          dvdMenu.addMouseListener(new MouseAdapter() {
              @Override
              public void mouseClicked(MouseEvent me) {
                  JFrame frame2 = new ProdukDvd(idAdmin);
-                 frame.setVisible(false);
-                 frame2.setVisible(true);
-             }
-         });
-         
-         // admin menu clicked
-         
-         adminMenu.addMouseListener(new MouseAdapter() {
-             @Override
-             public void mouseClicked(MouseEvent me) {
-                 
-                 JFrame frame2 = new AdminView(idAdmin);
                  frame.setVisible(false);
                  frame2.setVisible(true);
              }
@@ -246,8 +240,8 @@ public class AdminView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         dashbordItem32 = new projek.kelompok.apprentaldvd.view.component.DashbordItem3();
         jLabel4 = new javax.swing.JLabel();
-        logoPinjam = new javax.swing.JLabel();
         labelJamAkhir = new javax.swing.JLabel();
+        logoDvd1 = new javax.swing.JLabel();
         dashbordItem22 = new projek.kelompok.apprentaldvd.view.component.DashbordItem2();
         jLabel2 = new javax.swing.JLabel();
         logoDvd = new javax.swing.JLabel();
@@ -592,11 +586,11 @@ public class AdminView extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Sampai Jam");
 
-        logoPinjam.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_total.png")); // NOI18N
-
         labelJamAkhir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelJamAkhir.setForeground(new java.awt.Color(255, 255, 255));
         labelJamAkhir.setText("17.00");
+
+        logoDvd1.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\jam.png")); // NOI18N
 
         javax.swing.GroupLayout dashbordItem32Layout = new javax.swing.GroupLayout(dashbordItem32);
         dashbordItem32.setLayout(dashbordItem32Layout);
@@ -607,17 +601,19 @@ public class AdminView extends javax.swing.JFrame {
                 .addGroup(dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(dashbordItem32Layout.createSequentialGroup()
-                        .addGroup(dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(logoPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelJamAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelJamAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 41, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(dashbordItem32Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoDvd1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dashbordItem32Layout.setVerticalGroup(
             dashbordItem32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashbordItem32Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(logoPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(logoDvd1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -631,7 +627,7 @@ public class AdminView extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Masuk Jam");
 
-        logoDvd.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_dvd.png")); // NOI18N
+        logoDvd.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\jam.png")); // NOI18N
 
         labelJamMasuk.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelJamMasuk.setForeground(new java.awt.Color(255, 255, 255));
@@ -670,7 +666,7 @@ public class AdminView extends javax.swing.JFrame {
         judulProfit.setForeground(new java.awt.Color(255, 255, 255));
         judulProfit.setText("Nama Admin");
 
-        logoBabi.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\logo_profit.png")); // NOI18N
+        logoBabi.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\admin_putih.png")); // NOI18N
 
         labelNama.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelNama.setForeground(new java.awt.Color(255, 255, 255));
@@ -849,7 +845,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel labelNama;
     private javax.swing.JLabel logoBabi;
     private javax.swing.JLabel logoDvd;
-    private javax.swing.JLabel logoPinjam;
+    private javax.swing.JLabel logoDvd1;
     private javax.swing.JTextField masukJamField;
     private javax.swing.JTextField namaField;
     private javax.swing.JTextField noTelField;

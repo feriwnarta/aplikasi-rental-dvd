@@ -23,18 +23,21 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import projek.kelompok.apprentaldvd.controlller.service.AdminService;
-import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
-import projek.kelompok.apprentaldvd.controlller.service.PemesananService;
-import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.service.AdminService;
+import projek.kelompok.apprentaldvd.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.service.PemesananService;
+import projek.kelompok.apprentaldvd.service.ProdukDvdService;
 import projek.kelompok.apprentaldvd.model.Admin;
 import projek.kelompok.apprentaldvd.model.Dvd;
 import projek.kelompok.apprentaldvd.model.Pemesanan;
 
-/**
- *
- * @author Feri Winarta
- */
+
+    /**
+     * FRAME INI TIDAK BISA LANGSUNG DIJALANKAN, KARENA METHOD MAIN DIBAWAH TIDAK MEMANGGIL FRAME INI
+     * HARAP TIDAK DIGANTI, KARENA ADA PROSES TRASNFER ID ADMIN DARI PROSES LOGIN
+     * JIKA INGIN RUNNING LEWAT APLIKASI UTAMA FRAME, ATAU LOGINVIEW FRAME
+     */
+
 public class HomeView extends javax.swing.JFrame {
     private ProdukDvdService dvdService;
     private AdminService adminService;
@@ -46,10 +49,6 @@ public class HomeView extends javax.swing.JFrame {
         return idAdmin;
     }
     
-    /**
-     * FRAME INI TIDAK BISA LANGSUNG DIJALANKAN, KARENA METHOD MAIN DIBAWAH TIDAK MEMANGGIL FRAME INI
-     * HARAP TIDAK DIGANTI, KARENA ADA PROSES TRASNFER ID ADMIN DARI PROSES LOGIN
-     */
     public HomeView(String idAdmin) {
         initComponents();
         this.idAdmin = idAdmin;
@@ -139,8 +138,6 @@ public class HomeView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableDvd = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        searchField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         dashbordIcon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         dashbordItem1 = new projek.kelompok.apprentaldvd.view.component.DashbordItem();
@@ -155,6 +152,7 @@ public class HomeView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         totalSewaField = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         sidebar1 = new projek.kelompok.apprentaldvd.view.component.Sidebar();
         jLabel12 = new javax.swing.JLabel();
         adminMenu = new javax.swing.JLabel();
@@ -202,20 +200,6 @@ public class HomeView extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        searchField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        searchField.setText("Cari DVD ?.... ");
-        jPanel1.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 34, 822, 40));
-
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\search_icon.png")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 34, 92, 40));
-
         dashbordIcon.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\dashbord_icon.png")); // NOI18N
         jPanel1.add(dashbordIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 80, -1, -1));
 
@@ -223,7 +207,7 @@ public class HomeView extends javax.swing.JFrame {
         jLabel1.setText("DASHBOARD");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 100, -1, 30));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\icon_admin.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\kuliah\\sem_3\\pemrograman1\\aplikasi_rental_dvd\\src\\main\\resources\\admin_putih.png")); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -333,6 +317,10 @@ public class HomeView extends javax.swing.JFrame {
         );
 
         jPanel1.add(dashbordItem31, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 160, -1, 190));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setText("APLIKASI RENTAL DVD");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 750, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 920, 710));
 
@@ -456,10 +444,6 @@ public class HomeView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -504,7 +488,6 @@ public class HomeView extends javax.swing.JFrame {
     private projek.kelompok.apprentaldvd.view.component.DashbordItem2 dashbordItem21;
     private projek.kelompok.apprentaldvd.view.component.DashbordItem3 dashbordItem31;
     private javax.swing.JLabel dvdMenu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -517,6 +500,7 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -527,7 +511,6 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel jmlhDvdField;
     private javax.swing.JLabel pemesananMenu;
-    private javax.swing.JTextField searchField;
     private projek.kelompok.apprentaldvd.view.component.Sidebar sidebar1;
     private javax.swing.JTable tableDvd;
     private javax.swing.JLabel totalSewaField;

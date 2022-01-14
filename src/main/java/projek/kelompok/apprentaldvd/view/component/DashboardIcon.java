@@ -17,10 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Feri Winarta
- */
 public class DashboardIcon extends javax.swing.JPanel {
     
     public DashboardIcon() {

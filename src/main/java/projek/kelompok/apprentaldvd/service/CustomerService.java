@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projek.kelompok.apprentaldvd.controlller.service;
+package projek.kelompok.apprentaldvd.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,10 +14,7 @@ import java.util.logging.Logger;
 import projek.kelompok.apprentaldvd.model.Customer;
 import projek.kelompok.apprentaldvd.model.Dvd;
 
-/**
- *
- * @author Feri Winarta
- */
+
 public class CustomerService {
     private Connection conn;
     private Customer customer;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projek.kelompok.apprentaldvd.controlller.service;
+package projek.kelompok.apprentaldvd.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,10 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Feri Winarta
- */
+
 public class KoneksiFactory {
     // jdbc:mysql://127.0.0.1:33061 /aplikasi_penyewaan_dvd", "root", ""
     private final String DBURL = "jdbc:mysql://127.0.0.1:33061 /aplikasi_penyewaan_dvd";

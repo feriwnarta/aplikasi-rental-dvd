@@ -17,14 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
-import projek.kelompok.apprentaldvd.controlller.service.AdminService;
-import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.service.AdminService;
+import projek.kelompok.apprentaldvd.service.KoneksiFactory;
 import projek.kelompok.apprentaldvd.model.Admin;
 
-/**
- *
- * @author Feri Winarta
- */
 public class LoginView extends javax.swing.JFrame {
     private String saveId, savePassword;
     private final JFrame frame = this;

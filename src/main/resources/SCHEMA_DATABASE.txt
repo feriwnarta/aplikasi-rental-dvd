@@ -11,10 +11,10 @@ CREATE TABLE admin (
 );
 
 CREATE TABLE customer (
-    nik BIGINT,
+    nik VARCHAR(20),
     nama VARCHAR(50),
     alamat TEXT,
-    no_telpon BIGINT,
+    no_telpon VARCHAR(20),
     PRIMARY KEY(nik)
 );
 
@@ -29,10 +29,10 @@ CREATE TABLE dvd (
 
 CREATE TABLE pemesanan_detail (
     kode_detail INT AUTO_INCREMENT,
-    nik BIGINT,
+    nik VARCHAR(20),
     kode_dvd VARCHAR(20),
     quantity INT,
-    lama_sewa DATE,
+    lama_sewa INT,
     PRIMARY KEY(kode_detail)
 );
 

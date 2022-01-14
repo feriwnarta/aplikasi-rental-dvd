@@ -22,17 +22,20 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
-import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.service.ProdukDvdService;
 import projek.kelompok.apprentaldvd.model.Dvd;
+import projek.kelompok.apprentaldvd.model.Pemesanan;
 import projek.kelompok.apprentaldvd.view.component.DeleteDvd;
 import projek.kelompok.apprentaldvd.view.component.TambahDvd;
 import projek.kelompok.apprentaldvd.view.component.UpdateDvd;
 
-/**
- *
- * @author Feri Winarta
- */
+
+    /**
+     * FRAME INI TIDAK BISA LANGSUNG DIJALANKAN, KARENA METHOD MAIN DIBAWAH TIDAK MEMANGGIL FRAME INI
+     * HARAP TIDAK DIGANTI, KARENA ADA PROSES TRASNFER ID ADMIN DARI PROSES LOGIN
+     * JIKA INGIN RUNNING LEWAT APLIKASI UTAMA FRAME, ATAU LOGINVIEW FRAME
+     */
 public class ProdukDvd extends javax.swing.JFrame {
     private ProdukDvdService service;
     private JFrame frame = this;
@@ -142,19 +145,19 @@ public class ProdukDvd extends javax.swing.JFrame {
              }
          });
          
-         
-         // list dvd menu clicked
-         dvdMenu.addMouseListener(new MouseAdapter() {
+         // pemesanan menu clicked
+         pemesananMenu.addMouseListener(new MouseAdapter() {
              @Override
              public void mouseClicked(MouseEvent me) {
-                 JFrame frame2 = new ProdukDvd(idAdmin);
+                 JFrame frame2 = new PemesananDvd(idAdmin);
                  frame.setVisible(false);
                  frame2.setVisible(true);
              }
          });
          
-         // admin menu clicked
          
+         
+         // admin menu clicked
          adminMenu.addMouseListener(new MouseAdapter() {
              @Override
              public void mouseClicked(MouseEvent me) {

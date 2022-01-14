@@ -17,10 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Feri Winarta
- */
+
 public class ButtonBg extends javax.swing.JPanel {
     
     public ButtonBg() {

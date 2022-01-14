@@ -21,8 +21,8 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
-import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.service.ProdukDvdService;
 import projek.kelompok.apprentaldvd.model.Dvd;
 import projek.kelompok.apprentaldvd.view.ProdukDvd;
 
@@ -88,6 +88,7 @@ public class TambahDvd extends javax.swing.JFrame {
                         && !inputQuanttiy.getText().isEmpty()
                         ) {
                      status = service.insertDvd(dvd);
+                     tampilDataDvd();
                 } else {
                     JOptionPane.showMessageDialog(frame, "Data tidak boleh kosong");
                 }

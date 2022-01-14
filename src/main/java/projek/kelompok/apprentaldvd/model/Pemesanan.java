@@ -7,10 +7,7 @@ package projek.kelompok.apprentaldvd.model;
 
 import java.sql.Date;
 
-/**
- *
- * @author Feri Winarta
- */
+
 public class Pemesanan {
     private String nik;
     private String kode;

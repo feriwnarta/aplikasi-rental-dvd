@@ -10,28 +10,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import projek.kelompok.apprentaldvd.controlller.service.AdminService;
-import projek.kelompok.apprentaldvd.controlller.service.CustomerService;
-import projek.kelompok.apprentaldvd.controlller.service.KoneksiFactory;
-import projek.kelompok.apprentaldvd.controlller.service.PemesananService;
-import projek.kelompok.apprentaldvd.controlller.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.service.AdminService;
+import projek.kelompok.apprentaldvd.service.CustomerService;
+import projek.kelompok.apprentaldvd.service.KoneksiFactory;
+import projek.kelompok.apprentaldvd.service.PemesananService;
+import projek.kelompok.apprentaldvd.service.ProdukDvdService;
+import projek.kelompok.apprentaldvd.model.Admin;
 import projek.kelompok.apprentaldvd.model.Customer;
 import projek.kelompok.apprentaldvd.model.Dvd;
 import projek.kelompok.apprentaldvd.model.Pemesanan;
+import projek.kelompok.apprentaldvd.view.component.StrukView;
 
-/**
- *
- * @author Feri Winarta
- */
+    /**
+     * FRAME INI TIDAK BISA LANGSUNG DIJALANKAN, KARENA METHOD MAIN DIBAWAH TIDAK MEMANGGIL FRAME INI
+     * HARAP TIDAK DIGANTI, KARENA ADA PROSES TRASNFER ID ADMIN DARI PROSES LOGIN
+     * JIKA INGIN RUNNING LEWAT APLIKASI UTAMA FRAME, ATAU LOGINVIEW FRAME
+     */
 public class PemesananDvd extends javax.swing.JFrame {
     private ProdukDvdService dvdService;
     private CustomerService customerService;
     private PemesananService pemesananService;
+    private AdminService adminService;
+            
     private Customer cust;
     JFrame frame = this;
     boolean isOke = false;
@@ -41,10 +48,11 @@ public class PemesananDvd extends javax.swing.JFrame {
         this.idAdmin = idAdmin;
         initComponents();
         
+        // register koneksi
         dvdService = new ProdukDvdService(new KoneksiFactory().getConn());
         customerService = new CustomerService(new KoneksiFactory().getConn());
         pemesananService = new PemesananService(new KoneksiFactory().getConn());
-        
+        adminService = new AdminService(new KoneksiFactory().getConn());
         
         tambahFilmClicked();
         cekNikClicked();
@@ -58,6 +66,12 @@ public class PemesananDvd extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+    }
+    
+    public void cetakStruk(String judul, String nama, String quantity, String namaAdmin, int totalHarga) {
+        StrukView view = new StrukView(judul, nama, quantity, namaAdmin, totalHarga);
+        JFrame frameView = view;
+        frameView.setVisible(true);
     }
     
     public void viewSemuaDvd() {
@@ -121,12 +135,32 @@ public class PemesananDvd extends javax.swing.JFrame {
                     pemesananService.insertPemesanan(pemesanan1);
                     JOptionPane.showMessageDialog(this, "proses pembayaran berhasil");
                     viewDetailPesanan();
+                    // ambil data dvd dan admin berdasarkan id untuk cetak struk
+                    Dvd judulCetakStruk = dvdService.getSatuDvd(kode);
+                    Admin admin = adminService.getOneAdmin(idAdmin);
+                    
+                    // cek harga
+                    BigDecimal totalHarga = judulCetakStruk.getHarga();
+                    int totalHargaParse = totalHarga.intValue();
+                    quantity *= totalHargaParse;
+                    
+                    cetakStruk(judulCetakStruk.getJudulFilm(), nama, alamat, admin.getNama(), quantity);
                 } else if(isOke == true || cekNik() == true) {
                     // insert pemesanan service
                     Pemesanan pemesanan1 = new Pemesanan(nik, kode, quantity, lama);
                     pemesananService.insertPemesanan(pemesanan1);
                     JOptionPane.showMessageDialog(this, "proses tambah berhasil");
                     viewDetailPesanan();
+                    // ambil data dvd berdasarkan id untuk cetak struk
+                    Dvd judulCetakStruk = dvdService.getSatuDvd(kode);
+                    Admin admin = adminService.getOneAdmin(idAdmin);
+                    
+                    // cek harga
+                    BigDecimal totalHarga = judulCetakStruk.getHarga();
+                    int totalHargaParse = totalHarga.intValue();
+                    quantity *= totalHargaParse;
+                    
+                    cetakStruk(judulCetakStruk.getJudulFilm(), nama, alamat, admin.getNama(), quantity);
                 }else {
                     JOptionPane.showMessageDialog(this, "NIK sudah terdaftar, klik tombol tambah atau proses pembyaran lagi");
                     isOke = true;

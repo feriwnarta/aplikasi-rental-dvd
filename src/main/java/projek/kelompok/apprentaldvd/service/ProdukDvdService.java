@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projek.kelompok.apprentaldvd.controlller.service;
+package projek.kelompok.apprentaldvd.service;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -19,10 +19,7 @@ import java.util.logging.Logger;
 import projek.kelompok.apprentaldvd.model.Dvd;
 import sun.util.logging.resources.logging;
 
-/**
- *
- * @author Feri Winarta
- */
+
 public class ProdukDvdService {
     private Connection conn;
     private List<Dvd> listSemuaDvd;

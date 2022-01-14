@@ -5,10 +5,7 @@
  */
 package projek.kelompok.apprentaldvd.model;
 
-/**
- *
- * @author Feri Winarta
- */
+
 public class Customer {
     private String nik;
     private String nama;

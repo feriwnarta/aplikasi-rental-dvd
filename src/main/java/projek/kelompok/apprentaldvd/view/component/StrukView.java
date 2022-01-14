@@ -21,74 +21,33 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import projek.kelompok.apprentaldvd.service.AdminService;
 import projek.kelompok.apprentaldvd.service.KoneksiFactory;
 import projek.kelompok.apprentaldvd.service.ProdukDvdService;
-import projek.kelompok.apprentaldvd.model.Admin;
 import projek.kelompok.apprentaldvd.model.Dvd;
-import projek.kelompok.apprentaldvd.view.AdminView;
 import projek.kelompok.apprentaldvd.view.ProdukDvd;
 
 /**
  *
  * @author Feri Winarta
  */
-public class GantiPassword extends javax.swing.JFrame {    
-    private AdminService service;
+public class StrukView extends javax.swing.JFrame {    
+    private ProdukDvdService service;
     private JFrame frame = this;
     
-    public GantiPassword(String idAdmin) {
+    public StrukView(String judul, String nama, String quantity, String namaAdmin, int totalHarga) {
         initComponents();
         
         // untuk menengahkan layar
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        service = new AdminService(new KoneksiFactory().getConn());
+        namaLabel.setText(nama);
+        dvdLabel.setText(judul);
+        hargaLabel.setText(Integer.toString(totalHarga));
+        quantityLabel.setText(quantity);
+        adminLabel.setText(namaAdmin);
         
-        JFrame frameIni = this;
-        jButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                JFrame frame = new AdminView(idAdmin);
-                frameIni.setVisible(false);
-                frame.setVisible(true);
-            }
-        });
     }
-    
-    public void gantiPassword(){
-        try {
-            
-            String id = inputId.getText();
-            String passwordLama = inputPasswordLama.getText();
-            String passwordBaru =  inputPasswordBaru.getText();
-            
-            Admin admin = service.getOneAdmin(id);
-            if(admin.getId().equals(id) && admin.getPassword().equals(passwordLama)) {
-                Admin adminUpdate = admin;
-                adminUpdate.setPassword(passwordBaru);
-                int status = service.updateAdmin(adminUpdate);
-                if(status == 1) {
-                    JOptionPane.showMessageDialog(this, "Password berhasil diganti");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Password gagal diganti");
-                }
-            }
-            
-        }catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, "ID SALAH");
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -103,57 +62,73 @@ public class GantiPassword extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        harga = new javax.swing.JLabel();
         judul = new javax.swing.JLabel();
         kategori = new javax.swing.JLabel();
         quantity = new javax.swing.JLabel();
-        inputId = new javax.swing.JTextField();
-        inputPasswordLama = new javax.swing.JTextField();
-        inputPasswordBaru = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        harga1 = new javax.swing.JLabel();
+        adminLabel = new javax.swing.JLabel();
+        dvdLabel = new javax.swing.JLabel();
+        namaLabel = new javax.swing.JLabel();
+        quantityLabel = new javax.swing.JLabel();
+        hargaLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        harga.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        harga.setText("Nama Admin");
+        jPanel1.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 110, 30));
+
         judul.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        judul.setText("ID");
+        judul.setText("Judul DVD");
         jPanel1.add(judul, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 100, 30));
 
         kategori.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        kategori.setText("Password lama");
-        jPanel1.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 140, 30));
+        kategori.setText("Nama Cust");
+        jPanel1.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 100, 30));
 
         quantity.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        quantity.setText("Password Baru");
-        jPanel1.add(quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 130, 30));
-        jPanel1.add(inputId, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 260, 30));
-        jPanel1.add(inputPasswordLama, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 260, 30));
-        jPanel1.add(inputPasswordBaru, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 260, 30));
-
-        jButton1.setText("Simpan");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 120, 70));
+        quantity.setText("Quantity");
+        jPanel1.add(quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 100, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("GANTI PASSWORD");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 200, 30));
+        jLabel1.setText("Struk Pembayaran");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 200, 30));
 
-        jButton2.setText("Kembali");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 90, 50));
+        harga1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        harga1.setText("Total Harga");
+        jPanel1.add(harga1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 100, 30));
+
+        adminLabel.setText("jLabel2");
+        jPanel1.add(adminLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 260, 30));
+
+        dvdLabel.setText("jLabel2");
+        jPanel1.add(dvdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 260, 30));
+
+        namaLabel.setText("jLabel2");
+        jPanel1.add(namaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 260, 30));
+
+        quantityLabel.setText("jLabel2");
+        jPanel1.add(quantityLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 260, 30));
+
+        hargaLabel.setText("jLabel2");
+        jPanel1.add(hargaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 260, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
         );
 
         pack();
@@ -176,13 +151,13 @@ public class GantiPassword extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GantiPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StrukView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GantiPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StrukView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GantiPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StrukView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GantiPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StrukView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -196,15 +171,17 @@ public class GantiPassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField inputId;
-    private javax.swing.JTextField inputPasswordBaru;
-    private javax.swing.JTextField inputPasswordLama;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel adminLabel;
+    private javax.swing.JLabel dvdLabel;
+    private javax.swing.JLabel harga;
+    private javax.swing.JLabel harga1;
+    private javax.swing.JLabel hargaLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel judul;
     private javax.swing.JLabel kategori;
+    private javax.swing.JLabel namaLabel;
     private javax.swing.JLabel quantity;
+    private javax.swing.JLabel quantityLabel;
     // End of variables declaration//GEN-END:variables
 }

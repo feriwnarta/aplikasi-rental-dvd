@@ -7,10 +7,6 @@ package projek.kelompok.apprentaldvd.model;
 
 import java.sql.Date;
 
-/**
- *
- * @author Feri Winarta
- */
 public class Admin {
     private String id;
     private String nama;
