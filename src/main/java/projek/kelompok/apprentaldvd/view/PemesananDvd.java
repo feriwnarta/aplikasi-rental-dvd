@@ -72,6 +72,8 @@ public class PemesananDvd extends javax.swing.JFrame {
         StrukView view = new StrukView(judul, nama, quantity, namaAdmin, totalHarga);
         JFrame frameView = view;
         frameView.setVisible(true);
+        frameView.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        viewSemuaDvd();
     }
     
     public void viewSemuaDvd() {
@@ -92,7 +94,6 @@ public class PemesananDvd extends javax.swing.JFrame {
     }
     
     public void informasiPemesanan()    {
-        
         String nik = inputNikField1.getText();
         String nama = inputNamaCustField1.getText();
         String alamat = inputAlamatField1.getText();
@@ -143,8 +144,10 @@ public class PemesananDvd extends javax.swing.JFrame {
                     BigDecimal totalHarga = judulCetakStruk.getHarga();
                     int totalHargaParse = totalHarga.intValue();
                     quantity *= totalHargaParse;
+
                     
-                    cetakStruk(judulCetakStruk.getJudulFilm(), nama, alamat, admin.getNama(), quantity);
+                    cetakStruk(judulCetakStruk.getJudulFilm(), nama, inputQuantityField.getText(), admin.getNama(), quantity);
+                    
                 } else if(isOke == true || cekNik() == true) {
                     // insert pemesanan service
                     Pemesanan pemesanan1 = new Pemesanan(nik, kode, quantity, lama);
@@ -757,6 +760,7 @@ public class PemesananDvd extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 // TIDAK BISA DIJALANKAN KARENA MENERIMA DATA DARI LOGIN
+                
             }
         });
     }

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import projek.kelompok.apprentaldvd.model.Dvd;
 import projek.kelompok.apprentaldvd.model.Pemesanan;
 
@@ -29,6 +31,7 @@ public class PemesananService {
         if(conn == null) {
             System.err.println("koneksi gagal di kelas " + getClass().getSimpleName());
         }
+        dvdService = new ProdukDvdService(new KoneksiFactory().getConn());
     }
     
     public int insertPemesanan(Pemesanan pemesanan){
@@ -43,7 +46,21 @@ public class PemesananService {
             ps.setInt(3, pemesanan.getQuantity());
             ps.setInt(4, pemesanan.getLamaSewa());
             
+            int quantityUpdate = pemesanan.getQuantity();
+            Dvd dvd = dvdService.getSatuDvd(pemesanan.getKode());
             status = ps.executeUpdate();
+            
+            // kurangi quantity dvd
+            quantityUpdate = dvd.getQuantity() - quantityUpdate;
+            PreparedStatement ps2 = conn.prepareStatement(
+                    "UPDATE dvd SET quantity = ? WHERE kode_dvd = ?"
+            );
+            ps2.setInt(1, quantityUpdate);
+            ps2.setString(2, pemesanan.getKode());
+            ps2.executeUpdate();
+            
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProdukDvdService.class.getName()).log(Level.SEVERE, null, ex);
         }

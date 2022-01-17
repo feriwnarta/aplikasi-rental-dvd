@@ -55,6 +55,17 @@ public class GantiPassword extends javax.swing.JFrame {
                 frame.setVisible(true);
             }
         });
+        
+        btnSimpanCliced();
+    }
+    
+    public void btnSimpanCliced() {
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                gantiPassword();
+            }
+        });
     }
     
     public void gantiPassword(){
@@ -64,16 +75,18 @@ public class GantiPassword extends javax.swing.JFrame {
             String passwordLama = inputPasswordLama.getText();
             String passwordBaru =  inputPasswordBaru.getText();
             
+            
             Admin admin = service.getOneAdmin(id);
             if(admin.getId().equals(id) && admin.getPassword().equals(passwordLama)) {
-                Admin adminUpdate = admin;
-                adminUpdate.setPassword(passwordBaru);
-                int status = service.updateAdmin(adminUpdate);
+                admin.setPassword(passwordBaru);
+                int status = service.gantiPasswordAdmin(admin);
                 if(status == 1) {
                     JOptionPane.showMessageDialog(this, "Password berhasil diganti");
                 } else {
                     JOptionPane.showMessageDialog(this, "Password gagal diganti");
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "ID atau Password Lama salah");
             }
             
         }catch(Exception ex) {
@@ -134,7 +147,7 @@ public class GantiPassword extends javax.swing.JFrame {
         jPanel1.add(inputPasswordBaru, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 260, 30));
 
         jButton1.setText("Simpan");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 120, 70));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 120, 70));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("GANTI PASSWORD");
@@ -147,9 +160,7 @@ public class GantiPassword extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
